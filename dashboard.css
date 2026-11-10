@@ -1,0 +1,1321 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+#app-content {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1.5fr);
+    gap: 10px;
+    container-type: inline-size;
+    container-name: dashboardArea;
+}
+
+/* ========================================
+   TEAM OVERVIEW
+======================================== */
+
+.team-overview {
+    container: teamoverview / inline-size;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+
+    gap: clamp(8px, 1vw, 16px);
+    padding: clamp(8px, 1vw, 16px);
+
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+
+    min-width: 0;
+    min-height: 0;
+}
+
+.team-info {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.team-record {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+/* ========================================
+   TEAM IDENTITY
+======================================== */
+
+.team-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: clamp(8px, 1.5cqw, 20px);
+
+    min-width: 0;
+    min-height: 0;
+}
+
+.team-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: clamp(70px, 12cqw, 170px);
+    aspect-ratio: 1;
+
+    flex-shrink: 0;
+
+    background-color: var(--team-strong, #181818);
+    color: var(--team-secondary, #9299A5);
+
+    border: 3px solid var(--team-secondary, #9299A5);
+    border-radius: 50%;
+
+    font-family: 'Graduate', serif;
+    font-size: clamp(24px, 5cqw, 75px);
+    font-weight: bold;
+
+    box-sizing: border-box;
+}
+
+.team-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-width: 0;
+
+    text-align: center;
+    color: var(--team-strong, #181818);
+}
+
+.school-name {
+    margin: 0 0 4px;
+
+    font-size: clamp(14px, min(1.6cqw, 2.5dvh), 28px);
+    font-weight: 500;
+}
+
+.mascot {
+    margin: 0;
+
+    font-family: 'Graduate', serif;
+    font-size: clamp(32px, min(5.5cqw, 7dvh), 110px);
+    font-weight: bold;
+
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.team-subtitle {
+    margin: 5px 0 0;
+    font-size: clamp(14px, min(2cqw, 3dvh), 32px);
+    letter-spacing: clamp(2px, 0.5cqw, 8px);
+    font-size: clamp(10px, 1.2cqw, 18px);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+/* ========================================
+   TEAM RECORD
+======================================== */
+
+.team-record {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    border-left: 1px solid #D5DFEB;
+    padding-top: clamp(6px, 0.8cqw, 12px);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.team-record p {
+    margin: 0;
+
+    font-size: clamp(10px, 1.1cqw, 16px);
+    font-weight: 600;
+    color: var(--team-strong, #181818);
+}
+
+.team-record h1 {
+    margin: 4px 0 0;
+
+    font-size: clamp(28px, 5cqw, 85px);
+    line-height: 1;
+
+    color: var(--team-strong, #181818);
+    white-space: nowrap;
+}
+
+.recent-leader-container{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 6fr 5fr;
+    gap: 10px;
+    color: black;
+}
+
+.recent-games, .team-leaders{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1;
+}
+
+.team-news{
+    padding: 8px;
+    background-color: white;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.recent-games h2, .team-leaders h2{
+    font-size: 20px;
+    margin: 0;
+}
+
+.recent-games-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-family: 'Graduate', serif;
+    text-transform: uppercase;
+    color: var(--team-strong, #181818);
+}
+
+.recent-games-header button{
+    background-color: var(--team-secondary, #9299A5);
+    border: none;
+    padding: 7px;
+    border-radius: 10px;
+    color:var(--team-strong, #181818);
+    width: 25%;
+}
+
+.recent-games-header h2{
+   font-size: 24px;
+   font-weight: bold;
+}
+
+.games-table{
+    width: 100%;
+ 
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 12px;
+    flex: 1;
+    min-height: 0;
+    border: 1px solid #D5DFEB;
+    border-radius: 8px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+}
+
+.games-table th{
+    background-color: #E8EDF3;
+    color: var(--team-strong, #181818);
+    font-weight: 700;
+    padding: 10px 8px;
+    text-align: left;
+    font-size: 12px;
+    
+}
+
+.games-table td{
+    padding: 9px 8px;
+    font-size: 14px;
+    color: var(--team-strong, #181818);
+}
+
+.games-table th:nth-child(1){
+    width: 18%;
+}
+
+.games-table th:nth-child(2){
+    width: 32%;    
+}
+
+.games-table th:nth-child(3){
+    width: 12%; 
+}
+
+.games-table th:nth-child(4){
+    width: 18%;     
+}
+
+.games-table th:nth-child(5){
+    width: 20%;     
+}
+
+.games-table tbody tr:nth-child(even){
+    background-color: #F7F9FC     
+}
+
+.win{
+    background-color: green;
+    
+}
+
+.loss{
+    background-color: red;
+}
+
+.win,
+.loss {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 32px;
+    height: 24px;
+
+    padding: 0 3px;
+    border-radius: 5px;
+
+    color: white;
+    font-weight: bold;
+}
+
+.games-table th:nth-child(n+3),
+.games-table td:nth-child(n+3) {
+    text-align: center;
+}
+
+.leader-row{
+    display: grid;
+    grid-template-columns: auto 1fr 100px;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.player-avatar{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: var(--team-secondary, #9299A5);
+    color: var(--team-strong, #181818);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    flex-direction: column;
+    gap: 3px;
+    
+}
+
+.player-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.player-info h3{
+    margin: 0;
+    font-size: 14px;
+    color: var(--team-strong, #181818);
+}
+.player-info span{
+    font-size: 11px;
+    color: #666666;
+}
+
+.player-info p{
+    margin: 0;
+    font-size: 11px;
+    color: lightgrey;
+}
+
+.leader-stat-info{
+    text-align: left;
+    position: relative;
+}
+
+.leader-stat-info p{
+    margin: 0;
+    font-size: 11px;
+    color: #777;
+}
+
+.leader-stat-info h2{
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--team-strong, #181818);
+}
+
+.leader-row:not(:last-child){
+    border-bottom:1px solid #E8EDF3;
+}
+
+#leaders-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    min-height: 0;
+}
+
+.team-leaders-header p{
+    margin: 0;
+    font-size: 12px;
+}
+
+.team-leaders-header{
+    border-bottom: 1px solid #E8EDF3;
+}
+
+.team-leaders-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--team-strong, #181818);
+}
+
+.leader-stat-info::before{
+    content: "";
+    position: absolute;
+    left: -60px;
+    top: 5%;
+    height: 100%;
+    width: 1px;
+    background-color: var(--team-strong, #181818);
+}
+
+.jersey-intials{
+    font-size: 10px;
+}
+
+.jersey-number{
+    font-size: 20px;
+}
+
+.team-crest {
+    border: 2px solid var(--team-strong, #181818);
+    padding: clamp(5px, 0.7vw, 10px);
+    border-radius: 8px;
+    font-size: clamp(14px, 1.5vw, 24px);
+}
+.schedule-goals-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    min-height: 0;
+}
+
+.weekly-schedule, .team-goals{
+    background-color: white;
+    padding: clamp(6px, 0.8vw, 15px);
+    border-radius: 10px;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* WEEKLY SCHEDULE */
+
+.weekly-schedule {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 16px);
+    overflow: hidden;
+}
+
+.weekly-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.weekly-header h2 {
+    font-family: 'Graduate', serif;
+    color: var(--team-strong, #181818);
+    font-size: clamp(16px, 1.6vw, 26px);
+    margin: 0;
+}
+
+.week-controls {
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 0.5vw, 10px);
+    color: var(--team-strong, #181818);
+    white-space: nowrap;
+}
+
+.week-controls button {
+    background: none;
+    border: none;
+    color: var(--team-strong, #181818);
+    font-size: clamp(18px, 1.5vw, 26px);
+    cursor: pointer;
+}
+
+#week-range {
+    font-size: clamp(10px, 1vw, 14px);
+}
+
+.weekly-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: clamp(3px, 0.4vw, 8px);
+    min-width: 0;
+}
+
+.weekly-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(4px, 0.5vw, 10px);
+    padding: clamp(6px, 0.7vw, 12px) 2px;
+
+    background-color: white;
+    border: 1px solid #D5DFEB;
+    border-radius: 8px;
+
+    color: var(--team-strong, #181818);
+    cursor: pointer;
+    min-width: 0;
+}
+
+.day-name {
+    font-size: clamp(9px, 0.8vw, 14px);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.day-number {
+    font-size: clamp(14px, 1.5vw, 26px);
+    font-weight: bold;
+}
+
+.weekly-day.home-game {
+    background-color: #DCEAF8;
+    color: var(--team-strong, #181818);
+}
+
+.weekly-day.away-game {
+    background-color: var(--team-strong, #181818);
+    color: white;
+}
+
+.weekly-day.practice-day {
+    background-color: #D9DDE3;
+    color: #243247;
+}
+
+.weekly-day.selected {
+    outline: 3px solid var(--team-secondary, #9299A5);
+    outline-offset: -3px;
+}
+
+
+/* =========================================
+   REDESIGNED DASHBOARD TEAM BANNER
+   ========================================= */
+
+/* Make the top banner a simple two-column layout */
+#app-content {
+    grid-template-rows:
+        minmax(140px, 0.75fr)
+        minmax(0, 1.5fr)
+        minmax(0, 1.5fr);
+}
+
+#app-content .team-overview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 24px;
+}
+
+/* Team identity */
+
+.team-overview .team-info {
+    grid-column: 1;
+    grid-row: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    width: 100%;
+}
+
+
+.team-overview .team-logo {
+    width: clamp(85px, 9vw, 135px);
+    aspect-ratio: 1;
+    font-size: clamp(40px, 5vw, 65px);
+}
+
+.team-overview .team-details {
+    text-align: center;
+    align-items: center;
+}
+
+.team-overview .school-name {
+    font-size: clamp(15px, 1.5vw, 22px);
+    margin-bottom: 6px;
+}
+
+.team-overview .mascot {
+    font-size: clamp(36px, 4vw, 65px);
+    line-height: 1.05;
+}
+
+.team-overview .team-subtitle {
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-top: 7px;
+}
+
+/* Overall season record */
+#app-content .team-overview .team-record {
+    grid-column: 2;
+    grid-row: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-left: 1px solid #D5DFEB;
+    padding: 12px 0 12px 20px;
+    text-align: center;
+}
+
+.team-overview .record-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--team-strong, #181818);
+}
+
+#app-content .team-overview #team-record-value {
+    margin: 8px 0;
+    font-size: clamp(40px, 4.5vw, 68px);
+    font-weight: 800;
+    color: var(--team-strong, #181818);
+}
+
+.team-overview .record-season {
+    font-size: 13px;
+    color: #687B97;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+    #app-content .team-overview {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 16px;
+    }
+
+    #app-content .team-overview .team-record {
+        grid-column: 1;
+        grid-row: 2;
+        border-left: none;
+        border-top: 1px solid #D5DFEB;
+        padding: 12px 0 0;
+    }
+}
+
+
+/* =========================================
+   DASHBOARD ROSTER
+   ========================================= */
+
+.dashboard-roster {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 10px;
+    padding: clamp(8px, 1vw, 15px);
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.dashboard-roster-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.dashboard-roster-header h2 {
+    font-family: 'Graduate', serif;
+    color: var(--team-strong, #181818);
+    font-size: clamp(16px, 1.6vw, 26px);
+    margin: 0;
+}
+
+.dashboard-roster-track {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 6px;
+}
+
+/* Original player card design */
+
+.dashboard-player-card {
+    flex: 0 0 var(--roster-card-width, 190px);
+    height: 100%;
+    min-height: 215px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 9px;
+    border: 2px solid var(--team-primary, #181818);
+    border-radius: 15px;
+    background: white;
+    color: var(--team-strong, #181818);
+    text-decoration: none;
+    scroll-snap-align: start;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+a.dashboard-player-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--team-secondary, #9299A5);
+}
+
+.dashboard-player-card .card-level {
+    background: var(--team-secondary, #9299A5);
+    color: var(--team-primary, #181818);
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Light jersey area, matching first concept */
+
+.dashboard-player-card .card-identity {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 10px;
+    background: #EFF3F9;
+    padding: 6px;
+}
+
+.dashboard-player-card .card-jersey {
+    width: 90px;
+    height: 92px;
+    flex-shrink: 1;
+    min-height: 55px;
+}
+
+.dashboard-player-card .card-jersey svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.dashboard-player-card .card-name {
+    font-family: 'Graduate', serif;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+/* Three statistics at bottom */
+
+.dashboard-player-card .card-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #EFF3F9;
+    border-radius: 10px;
+    padding: 9px 2px;
+}
+
+.dashboard-player-card .card-stat {
+    text-align: center;
+    min-width: 0;
+}
+
+.dashboard-player-card .card-stat:not(:last-child) {
+    border-right: 1px solid #A8B8CA;
+}
+
+.dashboard-player-card .card-stat strong {
+    display: block;
+    font-size: 17px;
+    color: var(--team-strong, #181818);
+}
+
+.dashboard-player-card .card-stat span {
+    display: block;
+    color: #64748B;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* Staff cards */
+.dashboard-player-card .staff-symbol {
+    display: grid;
+    place-items: center;
+    height: 92px;
+    font-size: 46px;
+    color: var(--team-strong, #181818);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-roster-track {
+        scroll-behavior: auto;
+    }
+}
+
+
+/* Smooth roster animation */
+
+.dashboard-roster-track.roster-auto-scroll {
+    overflow: visible;
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+    width: max-content;
+    flex: 0 0 auto;
+    will-change: transform;
+}
+
+.dashboard-roster {
+    overflow: hidden;
+}
+
+.dashboard-roster-track .dashboard-player-card {
+    flex-shrink: 0;
+}
+
+/* Keep news ticker below the content */
+#shared-footer {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+#team-news-ticker {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Smaller displays */
+@media (max-width: 850px) {
+    .schedule-goals-container,
+    .recent-leader-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-roster {
+        min-height: 340px;
+    }
+}
+
+/* =========================================
+   COMPACT WEEKLY GAME CALENDAR
+   ========================================= */
+
+.weekly-schedule .weekly-days {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    flex: 1;
+    align-items: stretch;
+}
+
+.weekly-schedule .weekly-day {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 7px;
+
+    min-width: 0;
+    min-height: 185px;
+    padding: 12px 4px;
+
+    text-align: center;
+    box-sizing: border-box;
+    cursor: default;
+    overflow: hidden;
+}
+
+.weekly-schedule .day-name {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.weekly-schedule .day-number {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.weekly-game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    width: 100%;
+    min-width: 0;
+    padding-top: 8px;
+    border-top: 1px solid currentColor;
+}
+
+.weekly-game-location {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+}
+
+.weekly-game-opponent {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.weekly-game-time {
+    margin-top: auto;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.weekly-no-game {
+    margin-top: 20px;
+    font-size: 18px;
+    opacity: 0.4;
+}
+
+.weekly-day.away-game .weekly-game-location {
+    color: var(--team-secondary, #9299A5);
+}
+
+.weekly-day.home-game .weekly-game-info {
+    border-color: #B5C9DF;
+}
+
+
+/* =========================================
+   COMPACT WEEKLY SCHEDULE
+   ========================================= */
+
+/* Stop the schedule from stretching vertically */
+.schedule-goals-container {
+    align-items: start;
+}
+
+/* Allow the schedule to use its natural height */
+.weekly-schedule {
+    height: auto;
+    min-height: 0;
+}
+
+/* Compact calendar squares */
+.weekly-schedule .weekly-days {
+    flex: none;
+    align-items: stretch;
+}
+
+.weekly-schedule .weekly-day {
+    min-height: 150px;
+    height: 150px;
+    padding: 10px 3px;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+/* Compact game details */
+.weekly-game-info {
+    gap: 4px;
+    padding-top: 5px;
+}
+
+.weekly-game-opponent {
+    font-size: 10px;
+    line-height: 1.15;
+}
+
+.weekly-game-time {
+    font-size: 10px;
+}
+
+
+/* =========================================
+   FIX DASHBOARD EMPTY VERTICAL SPACE
+   ========================================= */
+
+#app-content {
+    display: grid;
+
+    grid-template-rows:
+        auto
+        auto
+        auto;
+
+    align-content: start;
+    flex: 0 0 auto;
+    gap: 12px;
+}
+
+/* Weekly Schedule + Team Leaders */
+.schedule-goals-container {
+    min-height: 0;
+    height: auto;
+    align-items: start;
+}
+
+/* Remove unnecessary minimum heights */
+.schedule-goals-container .weekly-schedule,
+.schedule-goals-container .team-leaders {
+    min-height: 0;
+    height: auto;
+}
+
+
+/* =========================================
+   UPDATED PLAYER CARD DESIGN
+   ========================================= */
+
+/* Player identity: jersey, name, then grade */
+.dashboard-player-card .card-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 4px;
+}
+
+/* Larger jersey now that top badges are gone */
+.dashboard-player-card .card-jersey {
+    width: 88px;
+    height: 100px;
+    min-height: 80px;
+}
+
+/* Player name */
+.dashboard-player-card .card-name {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.15;
+}
+
+/* Grade beneath the name */
+.dashboard-player-card .card-grade {
+    font-size: 10px;
+    font-weight: 600;
+    color: #64748B;
+    text-align: center;
+}
+
+/* Remove unused top badge spacing */
+.dashboard-roster-track .dashboard-player-card {
+    gap: 6px;
+}
+
+
+/* =========================================
+   COMPACT DASHBOARD BOTTOM SECTION
+   ========================================= */
+
+/* Bottom row: Recent Games and Team Roster */
+#app-content .recent-leader-container {
+    min-height: 245px;
+    height: auto;
+    align-items: stretch;
+}
+
+/* Make both panels the same height */
+.recent-leader-container .recent-games,
+.recent-leader-container .dashboard-roster {
+    min-height: 245px;
+    height: 245px;
+    box-sizing: border-box;
+}
+
+/* Compact player cards */
+.recent-leader-container .dashboard-player-card {
+    height: 205px;
+    min-height: 205px;
+    padding: 6px;
+    gap: 4px;
+}
+
+/* Slightly smaller jersey */
+.recent-leader-container .card-jersey {
+    width: 75px;
+    height: 83px;
+    min-height: 0;
+}
+
+/* Tighten player identity */
+.recent-leader-container .card-identity {
+    gap: 2px;
+    padding: 4px;
+}
+
+/* Compact statistics */
+.recent-leader-container .card-stats {
+    padding: 5px 2px;
+}
+
+/* Reduce Recent Games row spacing */
+.recent-leader-container .games-table th {
+    padding: 7px 6px;
+}
+
+.recent-leader-container .games-table td {
+    padding: 6px;
+    font-size: 13px;
+}
+
+/* Keep the scrolling roster inside its panel */
+.recent-leader-container .dashboard-roster {
+    overflow: hidden;
+}
+
+.recent-leader-container .dashboard-roster-track {
+    min-height: 0;
+}
+
+/* Shorter roster cards */
+.recent-leader-container .dashboard-player-card {
+    height: 185px;
+    min-height: 185px;
+}
+
+/* Reduce empty space around jersey and name */
+.recent-leader-container .dashboard-player-card .card-identity {
+    padding: 3px;
+}
+
+/* Slightly reduce jersey height */
+.recent-leader-container .dashboard-player-card .card-jersey {
+    height: 73px;
+}
+
+
+/* =====================================
+   DASHBOARD TEAM EVENTS
+   ===================================== */
+
+/* Lighter primary colour for nongame events */
+.weekly-day.team-event {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 35%,
+        white
+    );
+}
+
+/* Keep event information compact */
+.weekly-team-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+}
+
+.weekly-event-venue {
+    font-size: 10px;
+    opacity: 0.8;
+    overflow-wrap: anywhere;
+}
+
+/* Prevent multiple activities from overflowing */
+.weekly-day {
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+/* =========================================
+   WEEKLY SCHEDULE — TEAM COLOURS
+   ========================================= */
+
+/* Home Games — Primary Colour */
+.weekly-day.home-game {
+    background: var(--team-primary, #181818);
+    color: #FFFFFF;
+}
+
+/* Away Games — Secondary Colour */
+.weekly-day.away-game {
+    background: var(--team-secondary, #9299A5);
+    color: var(--team-strong, #181818);
+}
+
+/* Practices, Meetings, Training, Other */
+.weekly-day.team-event {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 45%,
+        white
+    );
+    color: var(--team-strong, #181818);
+}
+
+/* Ensure the day labels and event text inherit
+   the correct colour */
+.weekly-day.home-game .day-name,
+.weekly-day.home-game .day-number,
+.weekly-day.home-game .weekly-game-info,
+.weekly-day.home-game .weekly-game-location,
+.weekly-day.home-game .weekly-game-opponent,
+.weekly-day.home-game .weekly-game-time,
+.weekly-day.home-game .weekly-event-venue {
+    color: #FFFFFF;
+}
+
+.weekly-day.away-game .day-name,
+.weekly-day.away-game .day-number,
+.weekly-day.away-game .weekly-game-info,
+.weekly-day.away-game .weekly-game-location,
+.weekly-day.away-game .weekly-game-opponent,
+.weekly-day.away-game .weekly-game-time,
+.weekly-day.away-game .weekly-event-venue,
+.weekly-day.team-event .day-name,
+.weekly-day.team-event .day-number,
+.weekly-day.team-event .weekly-game-info,
+.weekly-day.team-event .weekly-game-location,
+.weekly-day.team-event .weekly-game-opponent,
+.weekly-day.team-event .weekly-game-time,
+.weekly-day.team-event .weekly-event-venue {
+    color: var(--team-strong, #181818);
+}
+
+/* Follow the saved team identity, including neutral black/grey/white teams */
+.team-logo{background:var(--team-primary);border-color:var(--team-secondary);color:var(--team-secondary)}
+.team-details,.team-record,.weekly-schedule h2,.recent-games h2{color:var(--team-strong)}
+#app-content button:not(.calendar-subscribe-btn){accent-color:var(--team-primary)}
+
+
+/* ============================================================
+   DASHBOARD VIEWPORT FILL — overrides earlier compact sizing.
+   The former `align-content:start` and `flex:0 0 auto` rules left
+   unused space below the ticker on taller screens. These changes
+   affect Dashboard only; they do not modify the persistent shell.
+   ============================================================ */
+#app-content {
+    flex: 1 0 auto;
+    min-height: max(680px, calc(100dvh - 160px));
+    width: 100%;
+    box-sizing: border-box;
+    grid-template-rows: minmax(155px, 1fr) minmax(205px, 1.3fr) minmax(260px, 1.5fr);
+    align-content: stretch;
+    gap: 12px;
+}
+#app-content .team-overview,
+#app-content .schedule-goals-container,
+#app-content .recent-leader-container {
+    min-width: 0;
+    min-height: 0;
+}
+#app-content .schedule-goals-container,
+#app-content .recent-leader-container { align-items: stretch; }
+#app-content .weekly-schedule,
+#app-content .team-leaders,
+#app-content .recent-games,
+#app-content .dashboard-roster {
+    height: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+#app-content .weekly-schedule .weekly-days { flex: 1; }
+#app-content .weekly-schedule .weekly-day {
+    height: 100%;
+    min-height: 150px;
+}
+#app-content .recent-leader-container .recent-games,
+#app-content .recent-leader-container .dashboard-roster {
+    height: 100%;
+    min-height: 0;
+}
+/* Keep the original horizontal roster scroller contained. */
+#app-content .dashboard-roster-track { max-width: 100%; }
+@media (max-width: 850px) {
+    #app-content { min-height: 0; display: flex; flex-direction: column; }
+    #app-content .schedule-goals-container,
+    #app-content .recent-leader-container { grid-template-columns: 1fr; }
+    #app-content .weekly-schedule,
+    #app-content .team-leaders,
+    #app-content .recent-games,
+    #app-content .dashboard-roster { height: auto; min-height: 220px; }
+}
+
+
+/* Responsive roster sizing */
+
+.recent-leader-container .dashboard-roster {
+    container-type: inline-size;
+}
+
+/* Card width depends on available panel width */
+.recent-leader-container
+.dashboard-roster-track
+.dashboard-player-card {
+    --roster-card-width: clamp(155px, 43cqw, 235px);
+
+    width: var(--roster-card-width);
+    flex: 0 0 var(--roster-card-width);
+
+    /* Preserve the working card height */
+    height: 185px;
+    min-height: 185px;
+    max-height: 185px;
+}
+
+/* Jersey scales with card width */
+.recent-leader-container
+.dashboard-player-card .card-jersey {
+    width: clamp(60px, 17cqw, 90px);
+    height: 73px;
+}
+

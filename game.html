@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>if(window.parent!==window){document.documentElement.classList.add('scoridium-framed');}</script>
+<style>html.scoridium-framed #shared-header {display:none!important;}html.scoridium-framed #app-header {display:none!important;}html.scoridium-framed body {padding-top:0!important;}html.scoridium-framed body {min-height:100dvh!important;}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Basketball | Game</title>
+  <link rel="stylesheet" href="tracker.css">
+  <link rel="stylesheet" href="mobile-tracker.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="gamehub.html">← Game Hub</a>
+    <strong>GAME CENTER</strong>
+  </header>
+  <main class="tracker-shell">
+    <section class="scoreboard panel" aria-label="Scoreboard">
+      <div class="score-team">
+        <span class="small-label" id="home-label">HOME</span>
+        <h2 id="home-name">HOME TEAM</h2>
+        <output id="home-score">0</output>
+      </div>
+      <div class="score-center">
+        <span id="game-status">NOT STARTED</span>
+        <strong id="current-period">Q1</strong>
+        <span class="small-label">BASKETBALL</span>
+      </div>
+      <div class="score-team">
+        <span class="small-label" id="away-label">AWAY</span>
+        <h2 id="away-name">AWAY TEAM</h2>
+        <output id="away-score">0</output>
+      </div>
+    </section>
+    <div class="tracker-grid">
+      <div class="left-column">
+        
+<!-- BOX SCORE / PLAY-BY-PLAY / UNASSIGNED EVENTS -->
+      <section class="panel" id="game-info-panel">
+
+    <!-- TAB BUTTONS -->
+    <div class="game-info-tabs">
+        <button class="active" data-info-tab="box" type="button">
+            Box Score
+        </button>
+
+        <button data-info-tab="plays" type="button">
+            Play-by-Play
+        </button>
+
+        <button data-info-tab="unassigned" type="button">
+            Unassigned
+            <span id="tab-unassigned-count">0</span>
+        </button>
+    </div>
+
+    <!-- TAB CONTENT -->
+    <div class="game-info-content">
+
+        <!-- BOX SCORE TAB -->
+        <div id="info-box" class="info-tab-content">
+            <div id="quarter-box"></div>
+
+            <div class="table-scroll">
+                <table id="player-box">
+                    <thead>
+                        <tr>
+                            <th>PLAYER</th>
+                            <th>PTS</th>
+                            <th>FG</th>
+                            <th>3PT</th>
+                            <th>FT</th>
+                            <th>REB</th>
+                            <th>AST</th>
+                            <th>STL</th>
+                            <th>BLK</th>
+                            <th>TOV</th>
+                            <th>PF</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="player-box-body"></tbody>
+                </table>
+            </div>
+
+            <span id="box-period"></span>
+        </div>
+
+        <!-- PLAY-BY-PLAY TAB -->
+        <div id="info-plays" class="info-tab-content" hidden>
+
+            <div class="section-heading">
+                <h2>PLAY-BY-PLAY</h2>
+
+                <select id="play-filter" aria-label="Filter by quarter">
+                    <option value="all">FULL GAME</option>
+                </select>
+            </div>
+
+            <div id="play-by-play" class="event-list">
+                <p class="muted">No events yet.</p>
+            </div>
+        </div>
+
+        <!-- UNASSIGNED EVENTS TAB -->
+        <div id="info-unassigned" class="info-tab-content" hidden>
+
+            <div class="section-heading">
+                <h2>UNASSIGNED EVENTS</h2>
+                <span class="count" id="unassigned-count">0</span>
+            </div>
+
+            <div id="unassigned-list" class="event-list">
+                <p class="muted">All caught up.</p>
+            </div>
+        </div>
+
+    </div>
+
+        </section>
+
+        <section class="panel action-panel" id="tracker-controls">
+        <div class="section-heading">
+          <h2>SHOT CHART</h2>
+          <span id="shot-value-preview">Tap court to record</span>
+        </div>
+        <div class="court-wrap">
+          
+        <div class="court-view-toggle">
+    <button id="full-court-btn" class="active" type="button">
+        Full Court
+    </button>
+
+    <button id="half-court-btn" type="button">
+        Half Court
+    </button>
+    
+    <div class="court-side-toggle" hidden>
+    <button id="home-court-btn" class="active" type="button">Home</button>
+    <button id="away-court-btn" type="button">Away</button>
+  </div>
+    <button id="undo-event" type="button">Undo Last Event</button>
+          </div>
+<svg id="basketball-court"
+     viewBox="0 0 860 470"
+     preserveAspectRatio="xMidYMid meet"
+     aria-label="Basketball court; tap to record a shot"
+     role="img">
+
+  <!-- FULL COURT -->
+  <g id="full-court-art" pointer-events="none">
+    
+<!-- OUTER COURT BORDER -->
+<rect x="1.5" y="1.5" width="857" height="467"
+      rx="4"
+      fill="#D2A06D"
+      stroke="#B98556"
+      stroke-width="3"/>
+
+<!-- INNER COURT BOUNDARY -->
+<rect x="10" y="10" width="840" height="450"
+      fill="none"
+      stroke="white"
+      stroke-width="3"/>
+
+<!-- Half-court line and centre circle -->
+<line x1="430" y1="10" x2="430" y2="460"
+      stroke="white" stroke-width="3"/>
+
+<!-- CENTRE CIRCLE -->
+<circle cx="430" cy="235" r="54"
+        fill="none" stroke="white" stroke-width="3"/>
+
+<!-- LEFT PAINT -->
+<path d="M10 161.5 H184 V308.5 H10"
+      fill="none" stroke="white" stroke-width="3"/>
+
+<!-- RIGHT PAINT -->
+<path d="M850 161.5 H676 V308.5 H850"
+      fill="none" stroke="white" stroke-width="3"/>
+
+<!-- FREE THROW CIRCLES -->
+<circle cx="184" cy="235" r="54"
+        fill="none" stroke="white" stroke-width="3"/>
+
+<circle cx="676" cy="235" r="54"
+        fill="none" stroke="white" stroke-width="3"/>
+
+<!-- LEFT FIBA THREE-POINT LINE -->
+<path d="M10 37 H99.69
+         A202.5 202.5 0 0 1 99.69 433
+         H10"
+      fill="none" stroke="white" stroke-width="3"/>
+
+<!-- RIGHT FIBA THREE-POINT LINE -->
+<path d="M850 37 H760.31
+         A202.5 202.5 0 0 0 760.31 433
+         H850"
+      fill="none" stroke="white" stroke-width="3"/>
+
+<!-- BACKBOARDS -->
+<line x1="46" y1="208" x2="46" y2="262"
+      stroke="white" stroke-width="4"/>
+
+<line x1="814" y1="208" x2="814" y2="262"
+      stroke="white" stroke-width="4"/>
+
+<!-- LEFT BASKET -->
+<circle cx="57.25" cy="235" r="7"
+        fill="none" stroke="white" stroke-width="3"/>
+
+<!-- RIGHT BASKET -->
+<circle cx="802.75" cy="235" r="7"
+        fill="none" stroke="white" stroke-width="3"/>
+
+<!-- NO-CHARGE SEMICIRCLES -->
+<path d="M57.25 272.5
+         A37.5 37.5 0 0 0 57.25 197.5"
+      fill="none" stroke="white" stroke-width="3"/>
+
+<path d="M802.75 272.5
+         A37.5 37.5 0 0 1 802.75 197.5"
+      fill="none" stroke="white" stroke-width="3"/>
+
+        <text id="left-basket-label"
+      x="325" y="445"
+      text-anchor="middle"
+      font-size="28"
+      font-weight="700"
+      fill="#111"
+      opacity="0.55">
+    TEAM
+</text>
+
+<text id="right-basket-label"
+      x="525" y="445"
+      text-anchor="middle"
+      font-size="28"
+      font-weight="700"
+      fill="#111"
+      opacity="0.55">
+    TEAM
+</text>
+  </g>
+
+  <!-- REDRAWN HORIZONTAL HALF COURT -->
+  
+<!-- HALF COURT -->
+
+
+<!-- HALF COURT DRAWING -->
+<!-- FIBA HALF COURT -->
+<g id="half-court-art" pointer-events="none" style="display:none">
+
+    <!-- OUTER COURT BORDER -->
+<rect x="1.5" y="1.5" width="467" height="437"
+      rx="4"
+      fill="#B98556"
+      stroke="#A67245"
+      stroke-width="3"/>
+
+<!-- INNER COURT BOUNDARY -->
+<rect x="10" y="10" width="450" height="420"
+      fill="none"
+      stroke="white"
+      stroke-width="3"/>
+
+    <!-- Backboard -->
+    <line x1="208" y1="46" x2="262" y2="46"
+          stroke="white" stroke-width="4"/>
+
+    <!-- Basket -->
+    <circle cx="235" cy="57.25" r="7"
+            fill="none" stroke="white" stroke-width="3"/>
+
+    <!-- Paint -->
+    <rect x="161.5" y="10" width="147" height="174"
+          fill="none" stroke="white" stroke-width="3"/>
+
+    <!-- Free-throw circle -->
+    <circle cx="235" cy="184" r="54"
+            fill="none" stroke="white" stroke-width="3"/>
+
+    <!-- FIBA three-point line -->
+    <path d="M37 10 V99.69
+             A202.5 202.5 0 0 0 433 99.69
+             V10"
+          fill="none" stroke="white" stroke-width="3"/>
+
+    <!-- No-charge semicircle -->
+    <path d="M197.5 57.25
+             A37.5 37.5 0 0 0 272.5 57.25"
+          fill="none" stroke="white" stroke-width="3"/>
+
+    <!-- Team label -->
+    <text id="half-basket-label"
+          x="235" y="405"
+          text-anchor="middle"
+          font-size="24"
+          font-weight="700"
+          fill="#111"
+          opacity="0.55">
+        TEAM
+    </text>
+
+</g>
+
+
+
+
+  <!-- EXISTING SHOT MARKERS -->
+  <g id="shot-markers" pointer-events="none"></g>
+
+  <!-- CLICKABLE AREA -->
+  <g id="court-hotspots" fill="transparent">
+    <rect x="10" y="10" width="920" height="480"/>
+  </g>
+  
+</svg>
+<div class="shot-dialog" id="shot-dialog" hidden>
+          <strong id="shot-dialog-label">2-POINT ATTEMPT</strong>
+          <div class="button-row">
+            <button id="shot-made" class="success">MADE</button>
+            <button id="shot-missed" class="danger">MISSED</button>
+            <button id="shot-cancel">CANCEL</button>
+          </div>
+        </div>
+
+        </div>
+        <p class="hint">Tap a location, then choose Made or Missed. A tap on the 3-point line counts as 2 points.</p>
+        </section>
+        
+      </div>
+      <div class="right-column">
+        <section class="panel" id="game-controls">
+          <div class="section-heading">
+            <h2>GAME CONTROLS</h2>
+            <span id="period-note">Quarter 1</span>
+          </div>
+          <div class="button-row">
+            <button id="start-game" class="primary">START GAME</button>
+            <button id="end-quarter">END QUARTER</button>
+            <button id="end-game" class="danger">END GAME</button>
+          </div>
+          <p class="hint">After Q4, ending the quarter finishes the game unless the score is tied (overtime). Confirmations protect against accidental endings.</p>
+        </section>
+        <section class="panel player-panel">
+          <h3>SELECT PLAYER</h3>
+          <div class="player-grid" id="player-grid">
+            <span class="muted">No players loaded</span>
+          </div>
+        </section>
+
+        <section class="panel stats-panel">
+          <h3>RECORD STATS</h3>
+          <div class="subsection">
+          <div class="button-grid" id="other-stats">
+            <button data-stat="assist">AST</button>
+            <button data-stat="defensive_rebound">DREB</button>
+            <button data-stat="offensive_rebound">OREB</button>
+            <button data-stat="steal">STL</button><button data-stat="block">BLK</button>
+            <button data-stat="turnover">TOV</button><button data-stat="foul">PF</button>
+          </div>
+          </div>
+        
+<div class="subsection">
+    <h3>FREE THROWS</h3>
+
+    <div class="free-throw-grid">
+
+        <!-- HOME TEAM -->
+        <div class="free-throw-team">
+            <h4>HOME</h4>
+
+            <div class="button-row">
+                <button id="home-ft-made" class="success">
+                    MADE +1
+                </button>
+
+                <button id="home-ft-missed">
+                    MISSED
+                </button>
+            </div>
+        </div>
+
+        <!-- AWAY TEAM -->
+        <div class="free-throw-team">
+            <h4>AWAY</h4>
+
+            <div class="button-row">
+                <button id="away-ft-made" class="success">
+                    MADE +1
+                </button>
+
+                <button id="away-ft-missed">
+                    MISSED
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+        <div class="subsection">
+    <h3>OPPONENT STATS</h3>
+
+    <div class="button-grid opponent-stats">
+        <button data-opponent-stat="assist">AST</button>
+        <button data-opponent-stat="defensive_rebound">DREB</button>
+        <button data-opponent-stat="offensive_rebound">OREB</button>
+        <button data-opponent-stat="steal">STL</button>
+        <button data-opponent-stat="block">BLK</button>
+        <button data-opponent-stat="turnover">TOV</button>
+    </div>
+</div>
+        </section>
+    </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="script.js"></script>
+  <script src="mobile-tracker.js"></script>
+</body>
+</html>

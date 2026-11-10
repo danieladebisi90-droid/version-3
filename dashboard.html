@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Testing GitHub online editor -->
+<head>
+<script>if(window.top===window && sessionStorage.getItem('selectedTeamId')){location.replace('app.html?page=dashboard.html'+encodeURIComponent(location.search+location.hash));}</script>
+<script>if(window.parent!==window){document.documentElement.classList.add('scoridium-framed');}</script>
+<style>html.scoridium-framed #shared-header {display:none!important;}html.scoridium-framed #app-header {display:none!important;}html.scoridium-framed body {padding-top:0!important;}html.scoridium-framed body {min-height:100dvh!important;}</style>
+  <script src="team-theme-boot.js"></script>
+    <meta charset="UTF-8">
+    <title>Basketball Stats</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="pageLayout.css">
+  <link rel="stylesheet" href="navigation-smooth.css">
+</head>
+<body>
+    <div id="shared-header"><header id="app-header"><nav id="main-navigation" aria-label="Main navigation">
+<a href="myTeams.html" class="nav-home" aria-label="Back to My Teams" title="My Teams"><i data-lucide="house"></i></a>
+<span class="nav-divider"></span><div class="header-team"><h2 id="shared-team-name"></h2></div><span class="nav-divider"></span>
+<div class="nav-links"><a href="dashboard.html">Dashboard</a><a href="gamehub.html">Game Hub</a><a href="roster.html">Roster</a><a href="stats.html">Stats</a><a href="playbook.html">Playbook</a></div>
+<span class="nav-divider"></span><div class="season-selector-container"><select class="season-selector" aria-label="Select season"><option value="">Season</option></select></div>
+</nav></header>
+<script>/* synchronous identity restore, prior to first paint */
+(()=>{const t=window.__scoridiumCachedTeam;const id=sessionStorage.getItem('selectedTeamId');const label=t&&t.id===id?((t.team_type==='club'?(t.club_name||t.mascot):(t.mascot||t.club_name))||''):'';const target=document.getElementById('shared-team-name');if(target)target.textContent=label.toUpperCase();const link=document.querySelector('#main-navigation a[href="'+location.pathname.split('/').pop()+'"]');if(link)link.classList.add('active');const seasonId=sessionStorage.getItem('selectedSeasonId');const seasonName=sessionStorage.getItem('scoridium:season-label:'+id);if(seasonId&&seasonName){const s=document.querySelector('.season-selector');s.options[0].text=seasonName;s.options[0].value=seasonId;}})();
+</script></div>
+    <main id="app-content">
+        
+<section class="team-overview">
+
+    <!-- Team identity -->
+    <div class="team-info">
+        <div class="team-logo"></div>
+
+        <div class="team-details">
+            <h3 class="school-name"></h3>
+            <h1 class="mascot"></h1>
+            <p class="team-subtitle">Basketball</p>
+        </div>
+    </div>
+
+    <!-- Season record -->
+    <div class="team-record">
+        <p class="record-label">SEASON RECORD</p>
+
+        <h1 id="team-record-value">0 - 0</h1>
+
+        <p class="record-season" id="dashboard-record-season">
+            Selected Season
+        </p>
+    </div>
+
+</section>
+
+        <section class="schedule-goals-container">
+            <div class="weekly-schedule">
+                <div class="weekly-header"> <h2>WEEKLY SCHEDULE</h2>
+                    <div class="week-controls">
+                        <button id="previous-week">‹</button>
+                        <span id="week-range">Oct 26 – Nov 1</span>
+                        <button id="next-week">›</button>
+                    </div>
+                </div>
+                <div class="weekly-days" id="weekly-days">
+                <!-- JavaScript will generate the seven days -->
+                </div>
+            </div>
+        <div class="team-leaders">
+                <div class="team-leaders-header">
+                    <h2>Team Leaders</h2>
+                    <p>Season Leaders</p>
+                </div>
+                <div id="leaders-list">
+
+                </div>
+            </div>
+        </section>
+            <section class="recent-leader-container">
+            <div class="recent-games">
+                <div class="recent-games-header">
+                    <h2>Recent Games</h2> 
+                    <button class="game-list">View All Games</button> 
+                </div>
+                <table class="games-table">
+                    <thead>
+                        <tr>
+                            <th>DATE</th>
+                            <th>OPPONENT</th>
+                            <th>RESULT</th>
+                            <th>SCORE</th>
+                            <th>LOCATION</th>
+                        </tr> 
+                    </thead> 
+                    <tbody id="recent-games-body"></tbody>  
+                </table>
+            </div>
+            <div class="dashboard-roster">
+                <div class="dashboard-roster-header">
+                    <h2>TEAM ROSTER</h2>
+                </div>
+
+                <div id="dashboard-roster-track" class="dashboard-roster-track">
+                    <p>Loading roster...</p>
+                    </div>
+            </div>  
+        </section>
+    </main>
+    <div id="shared-footer"><footer id="team-news-ticker"><div class="ticker-label">TEAM NEWS</div><div class="ticker-container"><div class="ticker-content"><div class="ticker-group"><span class="ticker-item ticker-latest">Latest Result</span><span class="ticker-item ticker-next">Next Game</span><span class="ticker-item ticker-record">Team Record</span></div><div class="ticker-group" aria-hidden="true"><span class="ticker-item ticker-latest">Latest Result</span><span class="ticker-item ticker-next">Next Game</span><span class="ticker-item ticker-record">Team Record</span></div></div></div></footer></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="team-theme.js" defer></script>
+<script src="pageLayout.js" defer></script>
+<script src="Dashboard.js" defer></script>
+
+
+</body>
+</html>

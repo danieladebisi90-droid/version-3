@@ -1,0 +1,1202 @@
+/* MAIN GAME HUB LAYOUT */
+#app-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-hub-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+}
+
+/* LEFT SIDE */
+.game-schedule {
+    display: grid;
+    grid-template-rows: minmax(0, 0.46fr) minmax(0, 0.54fr);
+    gap: 10px;
+    min-height: 0;
+    min-width: 0;
+}
+
+/* RIGHT SIDE */
+.game-info-container {
+    display: grid;
+    grid-template-rows: minmax(0, 0.65fr) minmax(0, 0.35fr);
+    gap: 10px;
+    min-height: 0;
+    min-width: 0;
+}
+
+/* FOUR MAIN PANELS */
+.game-calendar,
+.games-list,
+.previous-game,
+.next-game {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 10px;
+    padding: clamp(8px, 1vw, 16px);
+    box-sizing: border-box;
+    min-height: 0;
+    min-width: 0;
+}
+
+/* PANEL HEADINGS */
+.game-calendar h2,
+.games-list h2,
+.previous-game h2,
+.next-game h2 {
+    margin: 0;
+    font-size: clamp(16px, 1.5vw, 24px);
+    color: var(--team-strong, #181818);
+    font-family: 'Graduate', serif;
+}
+
+/* CALENDAR HEADER */
+.game-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 0.8vw, 14px);
+}
+
+.calendar-controls button {
+    background: none;
+    border: none;
+    color: var(--team-strong, #181818);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#calendar-month {
+    color: var(--team-strong, #181818);
+    font-weight: 700;
+    font-size: clamp(12px, 1vw, 16px);
+    white-space: nowrap;
+}
+
+/* CALENDAR GRID */
+.calendar-weekdays,
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: clamp(3px, 0.4vw, 8px);
+    text-align: center;
+}
+
+.calendar-weekdays {
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: #777;
+    font-size: clamp(9px, 0.8vw, 12px);
+    font-weight: 700;
+}
+
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    grid-auto-rows: minmax(0, 1fr);
+
+    gap: clamp(3px, 0.4vw, 8px);
+
+    flex: 1;
+    min-height: 0;
+}
+
+.calendar-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E8EDF3;
+    border-radius: 6px;
+    background: white;
+    color: var(--team-strong, #181818);
+    font-size: clamp(11px, 1vw, 15px);
+    cursor: pointer;
+    min-height: 0;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.calendar-day.home-game {
+    background-color: #E8F1FF;
+    color: var(--team-strong, #181818);
+}
+
+.calendar-day.away-game {
+    background-color: var(--team-strong, #181818);
+    color: white;
+}
+
+.calendar-day.selected {
+    outline: 3px solid #2196F3;
+    outline-offset: -3px;
+}
+
+/* GAMES LIST */
+.games-list {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.games-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.games-list-header h2 {
+    margin: 0;
+}
+
+#games-count {
+    color: #777;
+    font-size: clamp(11px, 0.9vw, 14px);
+    white-space: nowrap;
+}
+
+/* GAME TABLE */
+.games-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    border: 1px solid #D5DFEB;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.games-table th {
+    background-color: #E8EDF3;
+    color: var(--team-strong, #181818);
+    font-size: clamp(10px, 0.8vw, 12px);
+    font-weight: 700;
+    padding: clamp(6px, 0.7vw, 10px);
+    text-align: left;
+}
+
+.games-table td {
+    color: var(--team-strong, #181818);
+    font-size: clamp(11px, 0.9vw, 14px);
+    padding: clamp(6px, 0.7vw, 10px);
+}
+
+.games-table tbody tr:nth-child(even) {
+    background-color: #F7F9FC;
+}
+
+.games-table tbody tr {
+    cursor: pointer;
+}
+
+.games-table tbody tr:hover {
+    background-color: #E8F1FF;
+}
+
+/* COLUMN WIDTHS */
+.games-table th:nth-child(1) { width: 18%; }
+.games-table th:nth-child(2) { width: 32%; }
+.games-table th:nth-child(3) { width: 18%; }
+.games-table th:nth-child(4) { width: 14%; }
+.games-table th:nth-child(5) { width: 18%; }
+
+.games-table th:nth-child(n+3),
+.games-table td:nth-child(n+3) {
+    text-align: center;
+}
+
+/* PREVIOUS GAME */
+.previous-game {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vh, 14px);
+    overflow-y: auto;
+}
+
+.previous-game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#previous-game-date {
+    color: #777;
+    font-size: clamp(11px, 0.9vw, 14px);
+}
+
+/* SCOREBOARD */
+.previous-game-scoreboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(8px, 1vw, 20px);
+    text-align: center;
+}
+
+.previous-home,
+.previous-away {
+    min-width: 0;
+}
+
+.previous-home h3,
+.previous-away h3 {
+    margin: 0;
+    color: var(--team-strong, #181818);
+    font-size: clamp(12px, 1.2vw, 20px);
+    overflow-wrap: anywhere;
+}
+
+.previous-home h1,
+.previous-away h1 {
+    margin: 4px 0 0;
+    color: var(--team-strong, #181818);
+    font-size: clamp(32px, 4vw, 64px);
+    line-height: 1;
+}
+
+.previous-vs {
+    color: #777;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* SECTION HEADINGS */
+
+/* QUARTER BREAKDOWN & GAME LEADERS HEADINGS */
+
+.previous-quarter-scores h3,
+.previous-game-leaders h3 {
+    font-family: 'Graduate', serif;
+    font-size: clamp(16px, 1.4vw, 22px);
+    font-weight: 700;
+    color: var(--team-strong, #181818);
+
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+
+    border-bottom: 3px solid var(--team-secondary, #9299A5);
+}
+
+/* QUARTER SCORES */
+#previous-quarters {
+    border-top: 1px solid #E8EDF3;
+    padding-top: 6px;
+}
+
+/* GAME LEADERS */
+#previous-leaders {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+/* BOX SCORE LINK */
+#previous-box-score-link {
+    align-self: flex-end;
+    margin-top: auto;
+    color: var(--team-strong, #181818);
+    font-size: clamp(11px, 0.9vw, 14px);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#previous-box-score-link:hover {
+    text-decoration: underline;
+}
+
+/* NEXT GAME */
+.next-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(5px, 0.7vh, 12px);
+}
+
+.next-game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+#next-game-date {
+    color: #777;
+    font-size: clamp(11px, 0.9vw, 14px);
+}
+
+/* MATCHUP */
+.next-game-matchup {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    text-align: center;
+    gap: clamp(6px, 1vw, 16px);
+}
+
+.next-home,
+.next-away {
+    min-width: 0;
+}
+
+.next-home h3,
+.next-away h3 {
+    color: var(--team-strong, #181818);
+    font-size: clamp(14px, 1.4vw, 24px);
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.next-home p,
+.next-away p {
+    color: #777;
+    font-size: clamp(10px, 0.8vw, 12px);
+    margin: 3px 0 0;
+}
+
+.next-vs {
+    color: #777;
+    font-size: clamp(12px, 1vw, 16px);
+    font-weight: bold;
+}
+
+/* GAME DETAILS */
+.next-game-details {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(8px, 1vw, 16px);
+    color: #666;
+    font-size: clamp(10px, 0.9vw, 14px);
+}
+
+/* OPEN GAME BUTTON */
+#open-next-game {
+    background-color: var(--team-secondary, #9299A5);
+    color: var(--team-strong, #181818);
+    border: none;
+    border-radius: 8px;
+    padding: clamp(7px, 0.8vw, 12px);
+    font-weight: 700;
+    font-size: clamp(11px, 1vw, 15px);
+    cursor: pointer;
+}
+
+#open-next-game:hover {
+    background-color: #E6C200;
+}
+
+.games-table tbody tr.selected-game {
+    background-color: #DCEBFF;
+    box-shadow: inset 3px 0 0 #2196F3;
+}
+
+
+/* =========================================
+   PREVIOUS GAME BOX SCORE
+   ========================================= */
+
+.quarter-score-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    font-size: 12px;
+}
+
+.quarter-score-table th {
+    padding: 8px 5px;
+    background: #E8EDF3;
+    color: var(--team-strong, #181818);
+    font-weight: 700;
+}
+
+.quarter-score-table td {
+    padding: 9px 5px;
+    color: var(--team-strong, #181818);
+    text-align: center;
+    border-bottom: 1px solid #E8EDF3;
+}
+
+.quarter-score-table th:first-child,
+.quarter-score-table td:first-child {
+    text-align: left;
+    font-weight: 700;
+}
+
+.quarter-score-table th:last-child,
+.quarter-score-table td:last-child {
+    font-weight: 800;
+}
+
+/* Three game-leader cards */
+
+#previous-leaders {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.game-leader-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-width: 0;
+    padding: 12px 6px;
+
+    background: #F1F5FA;
+    border: 1px solid #D5DFEB;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.game-leader-category {
+    font-size: 10px;
+    font-weight: 800;
+    color: #64748B;
+}
+
+.game-leader-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--team-strong, #181818);
+}
+
+.game-leader-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--team-strong, #181818);
+    overflow-wrap: anywhere;
+}
+
+/* Keep content readable on smaller screens */
+@media (max-width: 850px) {
+    .game-leader-card {
+        padding: 8px 4px;
+    }
+
+    .game-leader-value {
+        font-size: 22px;
+    }
+
+    .quarter-score-table {
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================
+   SCROLLABLE SEASON GAMES
+   ========================================= */
+
+/* Keep the panel at its allocated height */
+.games-list {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Keep the section heading visible */
+.games-list-header {
+    flex-shrink: 0;
+}
+
+/* Allow only the table area to scroll */
+.games-list .games-table {
+    display: block;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #A6BAD3 transparent;
+}
+
+/* Keep columns aligned when table rows scroll */
+.games-list .games-table thead,
+.games-list .games-table tbody {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.games-list .games-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+
+/* Scrollable table wrapper */
+
+.games-table-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #D5DFEB;
+    border-radius: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #A6BAD3 transparent;
+}
+
+.games-table-scroll .games-table {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+}
+
+.games-table-scroll .games-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #E8EDF3;
+}
+
+
+/* =========================================
+   COMPACT PREVIOUS GAME BOX SCORE
+   ========================================= */
+
+/* Reduce spacing throughout the panel */
+/* Balanced spacing for Previous Game */
+
+.previous-game {
+    gap: 10px;
+    padding: 14px;
+    overflow-y: hidden;
+}
+
+.previous-quarter-scores h3,
+.previous-game-leaders h3 {
+    font-size: clamp(16px, 1.3vw, 20px);
+    margin-bottom: 9px;
+    padding-bottom: 7px;
+}
+
+.previous-home h1,
+.previous-away h1 {
+    font-size: clamp(36px, 3.5vw, 56px);
+}
+
+.quarter-score-table th,
+.quarter-score-table td {
+    padding: 7px 5px;
+}
+
+.game-leader-card {
+    padding: 10px 6px;
+    gap: 5px;
+}
+
+.game-leader-value {
+    font-size: 26px;
+}
+
+#previous-box-score-link {
+    margin-top: auto;
+    padding: 5px 0;
+}
+
+/* Previous Game: no internal scrolling */
+
+.previous-game {
+    overflow-y: hidden;
+}
+
+#previous-box-score-link {
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+
+/* ===================================
+   GAME HUB — MANAGE SCHEDULE
+   =================================== */
+
+.manage-schedule-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 10px;
+    margin-right: 8px;
+
+    background: var(--team-primary, #181818);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.manage-schedule-btn svg {
+    width: 15px;
+    height: 15px;
+    color: var(--team-secondary, #9299A5);
+}
+
+.manage-schedule-btn:hover {
+    filter: brightness(1.15);
+}
+
+/* Modal */
+
+.schedule-modal[hidden] {
+    display: none !important;
+}
+
+.schedule-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.schedule-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 25, 50, 0.65);
+}
+
+.schedule-modal-content {
+    position: relative;
+    width: min(480px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 22px;
+    border-radius: 12px;
+    background: white;
+    color: var(--team-strong, #181818);
+}
+
+.schedule-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.schedule-modal-header button {
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#schedule-event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#schedule-event-form label {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#schedule-event-form input,
+#schedule-event-form select,
+#schedule-event-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px;
+    border: 1px solid #D5DFEB;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.schedule-time-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.schedule-time-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.schedule-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+#save-schedule-event {
+    padding: 10px 16px;
+    background: var(--team-primary, #181818);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#delete-schedule-event {
+    color: #B42318;
+    background: white;
+    border: 1px solid #B42318;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+#schedule-opponent-field[hidden],
+.schedule-extra-fields[hidden] {
+    display: none !important;
+}
+
+#manage-schedule[hidden] {
+    display: none !important;
+}
+
+
+/* =========================================
+   CALENDAR EVENT INDICATORS
+   ========================================= */
+
+.calendar-day {
+    position: relative;
+}
+
+.calendar-event-indicators {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+
+    pointer-events: none;
+}
+
+.calendar-event-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   TEAM-BRANDED CALENDAR COLOURS
+   ========================================= */
+
+/* Home game — team primary */
+.calendar-day.home-game {
+    background: var(--team-primary, #181818);
+    color: #FFFFFF;
+}
+
+/* Away game — team secondary */
+.calendar-day.away-game {
+    background: var(--team-secondary, #9299A5);
+    color: var(--team-strong, #181818);
+}
+
+/* Practices, meetings, training and other activities */
+.calendar-day.calendar-team-event {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 45%,
+        white
+    );
+    color: var(--team-strong, #181818);
+}
+
+/* Preserve team colours on hover */
+.calendar-day.home-game:hover {
+    background: var(--team-primary, #181818);
+}
+
+.calendar-day.away-game:hover {
+    background: var(--team-secondary, #9299A5);
+}
+
+.calendar-day.calendar-team-event:hover {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 55%,
+        white
+    );
+}
+
+.calendar-day.calendar-team-event {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 45%,
+        white
+    );
+    color: var(--team-strong, #181818);
+}
+
+
+/* =========================================
+   TEAM-BRANDED CALENDAR COLOURS
+   ========================================= */
+
+/* Home games: primary colour */
+.calendar-day.home-game {
+    background: var(--team-primary, #181818);
+    color: white;
+}
+
+/* Away games: secondary colour */
+.calendar-day.away-game {
+    background: var(--team-secondary, #9299A5);
+    color: var(--team-strong, #181818);
+}
+
+/* Practices, meetings and all other activities */
+.calendar-day.calendar-team-event {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 45%,
+        white
+    );
+    color: var(--team-strong, #181818);
+}
+
+/* Preserve event colours on hover */
+.calendar-day.home-game:hover {
+    background: var(--team-primary, #181818);
+}
+
+.calendar-day.away-game:hover {
+    background: var(--team-secondary, #9299A5);
+}
+
+.calendar-day.calendar-team-event:hover {
+    background: color-mix(
+        in srgb,
+        var(--team-primary, #181818) 55%,
+        white
+    );
+}
+
+
+/* EXISTING SCHEDULE EVENTS */
+
+.schedule-existing-events {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #D5DFEB;
+}
+
+.schedule-existing-events label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--team-strong, #181818);
+}
+
+#schedule-existing-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #D5DFEB;
+    border-radius: 6px;
+    background: #F5F7FA;
+    color: var(--team-strong, #181818);
+    font: inherit;
+}
+
+#schedule-existing-select:focus {
+    outline: 2px solid var(--team-secondary, #9299A5);
+    outline-offset: 2px;
+}
+
+#delete-schedule-event:not([hidden]) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#delete-schedule-event[hidden] {
+    display: none !important;
+}
+
+
+/* =====================================
+   COMPACT MANAGE SCHEDULE BUTTON
+   ===================================== */
+
+button.manage-schedule-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: auto;
+    height: 32px;
+    padding: 0 11px;
+    margin: 0 12px 0 0;
+
+    background: var(--team-primary, #181818);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: none;
+    white-space: nowrap;
+
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+button.manage-schedule-btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: var(--team-secondary, #9299A5);
+    stroke: currentColor;
+}
+
+button.manage-schedule-btn span {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+button.manage-schedule-btn:hover {
+    filter: brightness(1.12);
+}
+
+button.manage-schedule-btn[hidden] {
+    display: none !important;
+}
+
+
+/* CALENDAR EDITING MODE */
+
+.manage-schedule-btn.editing {
+    background: var(--team-secondary, #9299A5);
+    color: var(--team-primary, #181818);
+}
+
+.manage-schedule-btn.editing svg {
+    color: var(--team-primary, #181818);
+}
+
+.calendar-day {
+    cursor: pointer;
+}
+
+
+/* =====================================
+   RECURRING PRACTICES
+   ===================================== */
+
+.schedule-repeat-fields,
+#schedule-series-editor {
+    margin-top: 16px;
+    padding: 14px;
+    border: 1px solid #e2e7ef;
+    border-radius: 8px;
+}
+
+.schedule-repeat-toggle {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#schedule-repeat-options {
+    margin-top: 14px;
+}
+
+.schedule-repeat-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0 16px;
+}
+
+.schedule-repeat-days label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 10px;
+    border: 1px solid #dce2eb;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#schedule-repeat-until,
+#schedule-edit-scope {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.schedule-series-note {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Make sure hidden sections stay hidden */
+.schedule-repeat-fields[hidden],
+#schedule-repeat-options[hidden],
+#schedule-series-editor[hidden] {
+    display: none !important;
+}
+
+
+/* =====================================
+   RECURRING PRACTICE — COMPACT LAYOUT
+   ===================================== */
+
+.schedule-repeat-fields {
+    padding: 16px;
+    margin-top: 14px;
+    border: 1px solid #dce2eb;
+    border-radius: 10px;
+}
+
+/* Keep checkbox and label together */
+.schedule-repeat-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: auto !important;
+    margin: 0 !important;
+    cursor: pointer;
+}
+
+.schedule-repeat-toggle input {
+    width: 17px !important;
+    height: 17px !important;
+    margin: 0 !important;
+    flex: 0 0 17px;
+    accent-color: var(--team-primary, #181818);
+}
+
+/* Spacing beneath repeat toggle */
+#schedule-repeat-options {
+    margin-top: 18px;
+}
+
+/* Seven evenly sized weekday buttons */
+.schedule-repeat-days {
+    display: grid !important;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 6px;
+    margin: 10px 0 18px;
+}
+
+.schedule-repeat-days label {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    min-width: 0;
+    padding: 9px 2px;
+    margin: 0;
+
+    border: 1px solid #dce2eb;
+    border-radius: 7px;
+    font-size: 11px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.schedule-repeat-days input {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+    accent-color: var(--team-primary, #181818);
+}
+
+#schedule-repeat-until {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Prevent hidden fields from taking space */
+.schedule-repeat-fields[hidden],
+#schedule-repeat-options[hidden],
+#schedule-series-editor[hidden] {
+    display: none !important;
+}
+
+
+/* =====================================
+   GAME SCHEDULING FIELDS
+   ===================================== */
+
+#schedule-game-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+#schedule-game-fields[hidden] {
+    display: none !important;
+}
+
+#schedule-game-fields select,
+#schedule-game-fields input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#schedule-event-location[hidden],
+label[for="schedule-event-location"][hidden] {
+    display: none !important;
+}
+
+#schedule-end-time[hidden],
+label[for="schedule-end-time"][hidden] {
+    display: none !important;
+}
+/* Dynamic palette for calendar & scheduling controls */
+.game-calendar h2,.games-list h2,.previous-game h2,.next-game h2,#calendar-month{color:var(--team-strong)}
+#calendar-dates button:focus-visible,.calendar-controls button:focus-visible{outline:2px solid var(--team-secondary);outline-offset:2px}

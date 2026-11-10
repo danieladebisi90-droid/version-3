@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>if(window.parent!==window){document.documentElement.classList.add('scoridium-framed');}</script>
+<style>html.scoridium-framed #shared-header {display:none!important;}html.scoridium-framed #app-header {display:none!important;}html.scoridium-framed body {padding-top:0!important;}html.scoridium-framed body {min-height:100dvh!important;}</style>
+  <script src="team-theme-boot.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Player Profile | Scoridium</title>
+<link href="player.css" rel="stylesheet"/>
+<link href="pageLayout.css" rel="stylesheet"/>
+<link href="player.css" rel="stylesheet"/>  <link rel="stylesheet" href="navigation-smooth.css">
+</head>
+<body>
+<div id="shared-header"><header id="app-header"><nav id="main-navigation" aria-label="Main navigation">
+<a href="myTeams.html" class="nav-home" aria-label="Back to My Teams" title="My Teams"><i data-lucide="house"></i></a>
+<span class="nav-divider"></span><div class="header-team"><h2 id="shared-team-name"></h2></div><span class="nav-divider"></span>
+<div class="nav-links"><a href="dashboard.html">Dashboard</a><a href="gamehub.html">Game Hub</a><a href="roster.html">Roster</a><a href="stats.html">Stats</a><a href="playbook.html">Playbook</a></div>
+<span class="nav-divider"></span><div class="season-selector-container"><select class="season-selector" aria-label="Select season"><option value="">Season</option></select></div>
+</nav></header>
+<script>/* synchronous identity restore, prior to first paint */
+(()=>{const t=window.__scoridiumCachedTeam;const id=sessionStorage.getItem('selectedTeamId');const label=t&&t.id===id?((t.team_type==='club'?(t.club_name||t.mascot):(t.mascot||t.club_name))||''):'';const target=document.getElementById('shared-team-name');if(target)target.textContent=label.toUpperCase();const link=document.querySelector('#main-navigation a[href="'+location.pathname.split('/').pop()+'"]');if(link)link.classList.add('active');const seasonId=sessionStorage.getItem('selectedSeasonId');const seasonName=sessionStorage.getItem('scoridium:season-label:'+id);if(seasonId&&seasonName){const s=document.querySelector('.season-selector');s.options[0].text=seasonName;s.options[0].value=seasonId;}})();
+</script></div>
+<nav aria-label="Preview navigation" class="preview-header" hidden="" id="preview-header">
+<strong>SCORIDIUM</strong><span>Dashboard</span><span>Game Hub</span><b>Team &amp; Roster</b><span>Stats</span><span>Playbook</span><span>2026 – 2027 ⌄</span>
+</nav>
+<main class="player-page"><div class="profile-page-toolbar"><a class="back-link" href="roster.html" id="back-roster">← Players</a><strong class="profile-page-title">Player Profile</strong><span class="profile-view-label">PLAYER ANALYTICS</span></div>
+
+<p class="message" hidden="" id="profile-message" role="status"></p>
+<section aria-label="Player summary" class="player-banner">
+
+<div aria-hidden="true" class="banner-jersey">
+<svg aria-hidden="true" class="basketball-jersey-svg" viewbox="0 0 180 210">
+<!-- Jersey body -->
+<path d="M25 12
+           H53
+           C58 42 70 52 90 52
+           C110 52 122 42 127 12
+           H155
+           V68
+           C155 94 167 108 177 118
+           V198
+           H3
+           V118
+           C13 108 25 94 25 68
+           Z" fill="var(--primary)"></path>
+<!-- White collar trim -->
+<path d="M53 12
+           C58 42 70 52 90 52
+           C110 52 122 42 127 12" fill="none" stroke="white" stroke-width="5"></path>
+<!-- White armhole trim -->
+<path d="M25 12 V68
+           C25 94 13 108 3 118
+           M155 12 V68
+           C155 94 167 108 177 118" fill="none" stroke="white" stroke-width="5"></path>
+<!-- Jersey number -->
+<text fill="white" font-size="19" font-weight="900" id="jersey-svg-lastname" text-anchor="middle" x="90" y="88">PLAYER</text><text fill="white" font-size="70" font-weight="900" id="jersey-svg-number" paint-order="stroke" stroke="#111827" stroke-width="5" text-anchor="middle" x="90" y="155">—</text>
+</svg>
+<span id="header-number">—</span>
+</div>
+<div class="player-heading">
+<h1 id="player-name">PLAYER PROFILE</h1>
+<p><span id="player-position">POSITION —</span> <i>│</i> <span id="player-grade">GRADE —</span></p>
+<p><span id="player-school">SCHOOL</span> <i>│</i> <span id="player-mascot">TEAM</span></p>
+</div>
+
+<div aria-hidden="true" class="letter-mark" id="team-letter">C</div></section>
+<nav aria-label="Player profile tabs" class="profile-tabs" role="tablist"><button aria-controls="panel-overview" aria-selected="true" id="tab-overview" role="tab" type="button">Overview</button><button aria-controls="panel-games" aria-selected="false" id="tab-games" role="tab" type="button">Game Log</button><button aria-controls="panel-statistics" aria-selected="false" id="tab-statistics" role="tab" type="button">Season Stats</button><button aria-controls="panel-career" aria-selected="false" id="tab-career" role="tab" type="button">Career</button></nav>
+<section aria-labelledby="tab-overview" class="tab-panel" id="panel-overview" role="tabpanel">
+  <div class="concept-overview-grid">
+    <div class="overview-column">
+      <article class="panel concept-average-panel"><div class="panel-titlebar"><h2>Season Averages</h2><span class="season-context" id="season-context">Selected Season</span></div><div class="season-average-grid" id="season-average-grid"></div></article>
+<article class="panel concept-shot-panel"><div class="panel-titlebar"><h2>Shot Chart (Season)</h2></div><div id="shot-panel-slot"><article class="panel shot-panel">
+<h2>SEASON SHOT CHART</h2>
+<div class="court-wrap">
+<svg aria-label="Player season shot chart" id="shot-court" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 860 470">
+<!-- OUTER COURT BORDER -->
+<rect fill="#D2A06D" height="467" rx="4" stroke="#B98556" stroke-width="3" width="857" x="1.5" y="1.5"></rect>
+<!-- INNER COURT BOUNDARY -->
+<rect fill="none" height="450" stroke="white" stroke-width="3" width="840" x="10" y="10"></rect>
+<!-- HALF-COURT LINE -->
+<line stroke="white" stroke-width="3" x1="430" x2="430" y1="10" y2="460"></line>
+<!-- CENTRE CIRCLE -->
+<circle cx="430" cy="235" fill="none" r="54" stroke="white" stroke-width="3"></circle>
+<!-- LEFT PAINT -->
+<path d="M10 161.5 H184 V308.5 H10" fill="none" stroke="white" stroke-width="3"></path>
+<!-- RIGHT PAINT -->
+<path d="M850 161.5 H676 V308.5 H850" fill="none" stroke="white" stroke-width="3"></path>
+<!-- FREE-THROW CIRCLES -->
+<circle cx="184" cy="235" fill="none" r="54" stroke="white" stroke-width="3"></circle>
+<circle cx="676" cy="235" fill="none" r="54" stroke="white" stroke-width="3"></circle>
+<!-- LEFT THREE-POINT LINE -->
+<path d="M10 37 H99.69
+           A202.5 202.5 0 0 1 99.69 433
+           H10" fill="none" stroke="white" stroke-width="3"></path>
+<!-- RIGHT THREE-POINT LINE -->
+<path d="M850 37 H760.31
+           A202.5 202.5 0 0 0 760.31 433
+           H850" fill="none" stroke="white" stroke-width="3"></path>
+<!-- BACKBOARDS -->
+<line stroke="white" stroke-width="4" x1="46" x2="46" y1="208" y2="262"></line>
+<line stroke="white" stroke-width="4" x1="814" x2="814" y1="208" y2="262"></line>
+<!-- BASKETS -->
+<circle cx="57.25" cy="235" fill="none" r="7" stroke="white" stroke-width="3"></circle>
+<circle cx="802.75" cy="235" fill="none" r="7" stroke="white" stroke-width="3"></circle>
+<!-- NO-CHARGE SEMICIRCLES -->
+<path d="M57.25 272.5
+           A37.5 37.5 0 0 0 57.25 197.5" fill="none" stroke="white" stroke-width="3"></path>
+<path d="M802.75 272.5
+           A37.5 37.5 0 0 1 802.75 197.5" fill="none" stroke="white" stroke-width="3"></path>
+<!-- INDIVIDUAL PLAYER SHOT MARKERS -->
+<g id="shot-points"></g>
+</svg>
+<p class="chart-empty" hidden="" id="chart-empty">No shot attempts from completed games yet.</p>
+</div>
+
+<div class="shot-legend">
+    <span>
+        <b class="dot made"></b>
+        Made (<span id="made-count">0</span>)
+    </span>
+
+    <span>
+        <b class="xmark">×</b>
+        Missed (<span id="missed-count">0</span>)
+    </span>
+
+    <span id="chart-fgp" hidden>—</span>
+</div>
+
+</article></div><div class="shooting-percentages" id="overview-shooting"></div></article>
+    </div>
+<div class="overview-column">
+<article class="panel concept-recent-panel"><div class="panel-titlebar"><h2>Recent Games</h2><button class="text-link" id="view-game-log" type="button">View All →</button></div><div class="recent-games-list" id="recent-games-list"></div></article>
+<article class="panel concept-highs-panel">
+    <div class="panel-titlebar">
+        <h2>Season Highs</h2>
+    </div>
+    <div class="season-highs-grid" id="season-highs-grid"></div>
+</article>
+</div>
+</div></section>
+<section aria-labelledby="tab-statistics" class="tab-panel season-tab" hidden="" id="panel-statistics" role="tabpanel">
+<div class="section-heading"><h2>Season Statistics</h2><span id="season-stat-context">Completed games</span></div><div class="stats-layout concept-season-grid">
+<article class="panel"><h2>SEASON TOTALS</h2><div class="stat-list" id="stat-totals"></div></article>
+<article class="panel"><h2>PER GAME AVERAGES</h2><div class="stat-list" id="stat-averages"></div></article>
+<article class="panel"><h2>SHOOTING STATISTICS</h2><div class="stat-list" id="stat-shooting"></div></article>
+
+<article class="panel">
+    <h2>SHOT BREAKDOWN</h2>
+  <div class="breakdown" id="shot-breakdown" hidden></div>
+
+    <div id="zone-preview-slot">
+        <article class="panel player-shooting-panel">
+            <button
+                aria-controls="player-analysis-modal"
+                aria-haspopup="dialog"
+                class="player-analysis-preview"
+                id="open-player-analysis"
+                type="button"
+            >
+                <div id="player-zone-preview">
+                    <p class="muted">Shooting analysis preview</p>
+                </div>
+
+                <span>Click to expand shooting analysis</span>
+            </button>
+        </article>
+    </div>
+</article>
+
+</div>
+
+</section>
+<section aria-labelledby="tab-games" class="tab-panel" hidden="" id="panel-games" role="tabpanel">
+<div class="games-layout concept-games-grid">
+<article class="panel games-table-panel"><h2>Game Log</h2><div class="table-scroll"><table><thead><tr><th>DATE</th><th>OPPONENT</th><th>RESULT</th><th>PTS</th><th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>FG</th><th>3PT</th><th>FT</th></tr></thead><tbody id="game-log-body"></tbody></table></div></article>
+<article class="panel"><h2>GAME LOG SUMMARY</h2><div class="stat-list" id="game-log-summary"></div></article>
+</div>
+</section><section aria-labelledby="tab-career" class="tab-panel" hidden="" id="panel-career" role="tabpanel">
+<div class="section-heading"><h2>Career Statistics</h2><span>Completed games across available seasons</span></div>
+<article class="panel career-table-panel"><div class="table-scroll"><table class="career-table"><thead><tr><th>Season</th><th>GP</th><th>PTS/G</th><th>REB/G</th><th>AST/G</th><th>STL/G</th><th>BLK/G</th><th>FG%</th><th>3P%</th><th>FT%</th></tr></thead><tbody id="career-stats-body"></tbody></table></div></article>
+<div class="career-lower"><article class="panel"><h2>Career Highs</h2><div class="stat-list" id="career-highs"></div></article><article class="panel"><h2>Achievements</h2><p class="muted">Achievements and awards can be added when we connect player accolades to Supabase.</p></article></div>
+</section>
+<p class="data-note" id="data-note">Only completed games contribute to season statistics.</p>
+</main>
+<!-- EXPANDED PLAYER SHOOTING ANALYSIS -->
+<dialog class="player-analysis-modal" id="player-analysis-modal">
+<!-- HEADER -->
+<div class="player-analysis-header">
+<h2>PLAYER VS TEAM SHOOTING</h2>
+<button aria-label="Close shooting analysis" id="close-player-analysis" type="button">
+            ✕
+        </button>
+</div>
+<!-- ANALYSIS CONTROLS -->
+<div class="player-analysis-controls">
+<div class="analysis-modes">
+<button class="active" data-analysis-mode="basic" type="button">
+                Basic
+            </button>
+<button data-analysis-mode="traditional" type="button">
+                Detailed
+            </button>
+<button data-analysis-mode="distance" type="button">
+                Distance
+            </button>
+</div>
+<select id="zone-quarter">
+<option value="all">Full Season</option>
+<option value="1">Q1</option>
+<option value="2">Q2</option>
+<option value="3">Q3</option>
+<option value="4">Q4</option>
+</select>
+</div>
+<!-- ANALYSIS CONTENT -->
+<div class="player-analysis-content">
+<div id="player-zone-court"></div>
+<div class="player-analysis-summary">
+<h3>SHOOTING COMPARISON</h3>
+<div id="zone-comparison-data"></div>
+</div>
+</div>
+</dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script defer="" src="team-theme.js"></script>
+<script defer="" src="pageLayout.js"></script>
+<script defer="" src="player.js"></script>
+</body>
+</html>

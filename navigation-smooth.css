@@ -1,0 +1,14 @@
+/* Browser-level cross-document transitions (progressively enhanced). */
+@view-transition { navigation: auto; }
+:root { background: var(--team-primary, #181818); color-scheme: normal; }
+#shared-header { view-transition-name: scoridium-nav; }
+/* Keep the nav stable; transition the main content rather than flashing a blank page. */
+::view-transition-old(scoridium-nav), ::view-transition-new(scoridium-nav) { animation-duration: .12s; animation-timing-function: ease-out; }
+::view-transition-old(root) { animation: .12s ease-in both fade-away; }
+::view-transition-new(root) { animation: .18s ease-out both fade-in; }
+@keyframes fade-away { from { opacity: 1; } to { opacity: .75; } }
+@keyframes fade-in { from { opacity: .75; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root),
+  ::view-transition-old(scoridium-nav), ::view-transition-new(scoridium-nav) { animation-duration: 0.01ms !important; }
+}

@@ -1,0 +1,38 @@
+/* Game Hub only — scoped calendar subscription styles */
+button.calendar-subscribe-btn {
+  display:inline-flex!important; align-items:center; justify-content:center;
+  width:auto!important; height:32px!important; min-width:0!important;
+  padding:0 11px!important; margin:0 8px 0 0!important;
+  border:1px solid #cbd5e1!important; border-radius:6px!important;
+  background:#fff!important; color:var(--team-primary,#123B78)!important;
+  font:700 12px/1 Arial,sans-serif!important; letter-spacing:normal!important;
+  text-transform:none!important; white-space:nowrap!important;
+  flex:0 0 auto; cursor:pointer;
+}
+button.calendar-subscribe-btn:hover {background:#f1f5f9!important}
+button.calendar-subscribe-btn[hidden] {display:none!important}
+#sc-calendar-modal[hidden], #sc-calendar-actions[hidden], #sc-calendar-revoke[hidden] {display:none!important}
+#sc-calendar-modal {position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:16px;box-sizing:border-box}
+.sc-calendar-backdrop {position:absolute;inset:0;background:rgba(15,23,42,.58)}
+.sc-calendar-panel {position:relative;width:min(100%,420px);max-height:92vh;overflow:auto;box-sizing:border-box;padding:22px;border-radius:12px;background:#fff;color:#172033;box-shadow:0 18px 55px #0003;font-family:inherit}
+.sc-calendar-heading {display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sc-calendar-heading h3 {margin:0;font-size:19px;font-weight:750;line-height:1.25;color:#172033}
+.sc-calendar-panel p {margin:0;font-size:12px;line-height:1.5}
+.sc-calendar-intro {margin-top:6px!important;color:#64748b}
+.sc-calendar-heading .sc-calendar-close {width:26px;height:26px;flex:0 0 26px;border:0;background:transparent;color:#64748b;font-size:17px;cursor:pointer;padding:0}
+.sc-calendar-status {margin-top:14px!important;padding:9px 11px;border-radius:7px;background:#f1f5f9;color:#475569}
+#sc-calendar-actions {display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.sc-calendar-section-title {font-size:11px;font-weight:800;letter-spacing:.04em;color:#334155;display:flex;justify-content:space-between;gap:8px}
+.sc-calendar-section-title span {font-weight:500;letter-spacing:normal;color:#64748b}
+.sc-calendar-providers {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#sc-calendar-actions .sc-provider-button {display:flex;align-items:center;justify-content:center;min-height:56px;padding:9px 5px;box-sizing:border-box;border:1px solid #dce3eb;border-radius:8px;background:#fff;color:#123B78;text-decoration:none;text-align:center;font-size:12px;font-weight:700;line-height:1.35;font-family:inherit;cursor:pointer}
+#sc-calendar-actions .sc-provider-button:hover {background:#f1f5f9;border-color:#94a3b8}
+.sc-calendar-instructions {color:#64748b;min-height:18px}
+#sc-calendar-actions .sc-calendar-copy,#sc-calendar-actions .sc-calendar-download {width:100%;padding:11px 12px;border-radius:7px;box-sizing:border-box;border:1px solid #cbd5e1;background:#fff;color:#123B78;font-size:12px;font-weight:700;cursor:pointer}
+#sc-calendar-actions .sc-calendar-copy {background:var(--team-primary,#123B78);color:#fff;border-color:var(--team-primary,#123B78)}
+#sc-calendar-actions .sc-calendar-copy:hover {filter:brightness(1.1)}
+#sc-calendar-actions .sc-calendar-download:hover {background:#f1f5f9}
+.sc-calendar-divider {height:1px;background:#e2e8f0;margin:4px 0}
+.sc-calendar-footer {color:#64748b}
+#sc-calendar-actions #sc-calendar-revoke {align-self:flex-start;padding:7px 0;border:0;background:none;color:#b91c1c;font-size:11px;font-weight:700;cursor:pointer;text-align:left}
+@media(max-width:380px){.sc-calendar-panel{padding:16px}.sc-calendar-section-title{flex-wrap:wrap}.sc-calendar-providers{gap:4px}}

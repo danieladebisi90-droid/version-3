@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Team · Scoridium</title>
+  
+<!-- 1. Load the Supabase library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- 2. Load your existing Supabase configuration -->
+<script src="supabase-config.js" defer></script>
+
+<!-- 3. Load the Create Team functionality -->
+<script src="create-team.js" defer></script>
+
+<link rel="stylesheet" href="create-team.css">
+
+</head>
+<body>
+  <main class="setup-shell">
+    <header class="setup-header">
+      <a href="dashboard.html" class="wordmark">SCORIDIUM<span class="brand-dot">.</span></a>
+      <span class="progress-text" id="step-indicator">STEP 1 OF 2</span>
+    </header>
+    <div class="progress-track" aria-hidden="true"><div id="progress-fill"></div></div>
+
+    <section id="identity-step" class="setup-card" aria-labelledby="form-heading">
+      <div class="eyebrow">TEAM ONBOARDING</div>
+      <h1 id="form-heading">Let's build your team.</h1>
+      <p class="subheading">Set up your identity. Everything here can be refined later.</p>
+
+      <div class="type-picker" role="group" aria-label="Team type">
+        <button class="type-option active" type="button" data-type="school" aria-pressed="true"><span>🏫</span><strong>School Team</strong><small>Varsity, JV, and school programs</small></button>
+        <button class="type-option" type="button" data-type="club" aria-pressed="false"><span>🏀</span><strong>Club Team</strong><small>Youth clubs and independent teams</small></button>
+      </div>
+
+      <form id="create-team-form" novalidate>
+        <div id="school-fields" class="field-group">
+          <label>School Name <input id="school-name" autocomplete="organization" maxlength="100" placeholder="e.g. Croxford High School"></label>
+          <label>Mascot <input id="mascot" maxlength="70" placeholder="e.g. Cavaliers"></label>
+          <label>Division
+            <select id="school-division">
+              <option value="Varsity">Varsity</option><option value="Senior Varsity">Senior Varsity</option><option value="Junior Varsity">Junior Varsity</option><option value="Freshman">Freshman</option><option value="Other">Other</option>
+            </select>
+          </label>
+          <label id="school-division-custom-wrap" hidden>Other division <input id="school-division-custom" maxlength="60" placeholder="Division name"></label>
+        </div>
+        <div id="club-fields" class="field-group" hidden>
+          <label>Club / Team Name <input id="club-name" maxlength="100" placeholder="e.g. Calgary Storm"></label>
+          <label>Division / Age Group
+            <select id="club-division">
+              <option value="U12">U12</option><option value="U13">U13</option><option value="U14">U14</option><option value="U15">U15</option><option value="U16">U16</option><option value="U17" selected>U17</option><option value="U18">U18</option><option value="U19">U19</option><option value="Open">Open / Adult</option><option value="Other">Other</option>
+            </select>
+          </label>
+          <label id="club-division-custom-wrap" hidden>Other age group <input id="club-division-custom" maxlength="60" placeholder="Age group"></label>
+        </div>
+        <div class="section-divider"></div>
+        <h2>Team Colours</h2>
+        <p class="helper">These colours will become your team's theme throughout Scoridium.</p>
+        <div class="colour-targets" role="group" aria-label="Colour to customize">
+          <button type="button" class="colour-target active" id="target-primary" data-colour-target="primary" aria-pressed="true"><span class="colour-sample" id="primary-sample"></span><span><strong>Primary</strong><small id="primary-target-hex">#181818</small></span></button>
+          <button type="button" class="colour-target" id="target-secondary" data-colour-target="secondary" aria-pressed="false"><span class="colour-sample" id="secondary-sample"></span><span><strong>Secondary</strong><small id="secondary-target-hex">#9299A5</small></span></button>
+        </div>
+        <label class="checkline"><input id="auto-secondary" type="checkbox"> My team has only one colour — generate a matching shade</label>
+        <div class="palette-section">
+          <strong class="palette-title" id="palette-title">Pick a primary colour</strong>
+          <p class="palette-hint">Choose a colour below, or use the custom colour controls for an exact match.</p>
+          <div class="simple-palette" id="simple-palette" role="group" aria-label="Simple team colours"></div>
+          <div class="shade-control">
+            <div class="shade-heading"><label for="colour-shade-slider" id="shade-slider-label">Adjust primary shade</label><output id="shade-slider-value" for="colour-shade-slider">Original</output></div>
+            <input type="range" id="colour-shade-slider" min="-70" max="70" step="5" value="0" aria-label="Lighten or darken selected team colour">
+            <div class="shade-ends"><span>Darker</span><span>Original</span><span>Lighter</span></div>
+          </div>
+          <button type="button" id="reset-default-colours" class="default-colours-button">↺ Use default black, grey &amp; white</button>
+          <p class="palette-hint" id="default-colours-hint">Optional: Scoridium starts with black, grey and white. If you don't choose colours, these defaults are saved automatically.</p>
+        </div>
+        <details class="custom-colours">
+          <summary>Custom colours (optional)</summary>
+          <div class="colours-row">
+            <label>Primary <div class="colour-input"><input type="color" id="primary-picker" value="#181818" aria-label="Primary colour picker"><input id="primary-hex" maxlength="7" value="#181818" spellcheck="false" aria-label="Primary colour hex"></div></label>
+            <label>Secondary <div class="colour-input"><input type="color" id="secondary-picker" value="#9299A5" aria-label="Secondary colour picker"><input id="secondary-hex" maxlength="7" value="#9299A5" spellcheck="false" aria-label="Secondary colour hex"></div></label>
+          </div>
+        </details>
+        <div class="section-divider"></div>
+        <label>First Season
+          <select id="season-select"></select>
+        </label>
+        <div class="team-preview" id="team-preview">
+          <span class="preview-topline">YOUR TEAM PREVIEW</span>
+          <div class="preview-main"><div class="preview-logo" id="preview-logo">CC</div><div><strong id="preview-name">Croxford Cavaliers</strong><small id="preview-meta">Varsity · Basketball</small></div></div>
+          <div class="preview-stripes"><i></i><i></i></div>
+        </div>
+        <div id="create-error" class="error-message" role="alert" aria-live="polite"></div>
+        <button type="submit" id="create-btn" class="primary-button">Create Team <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+
+    <section id="finish-step" class="setup-card" hidden aria-labelledby="finish-heading">
+      <div class="finish-icon" aria-hidden="true">✓</div>
+      <div class="eyebrow">TEAM CREATED</div>
+      <h1 id="finish-heading">Your team is ready.</h1>
+      <p class="subheading">Your team is saved in Scoridium. What would you like to do first?</p>
+      <div class="finish-summary" id="finish-summary"></div>
+      <div class="next-actions">
+        <a href="app.html?page=roster.html" id="roster-link" class="next-option"><span class="next-icon">♙</span><span><strong>Set Up Roster</strong><small>Add players and jersey numbers</small></span><span>→</span></a>
+        <a href="app.html?page=gamehub.html" id="schedule-link" class="next-option"><span class="next-icon">▦</span><span><strong>Set Up Schedule</strong><small>Games, practices, and meetings</small></span><span>→</span></a>
+        <a href="app.html?page=dashboard.html" id="dashboard-link" class="next-option secondary-next"><span class="next-icon">⌂</span><span><strong>Skip for Now</strong><small>Go to your team dashboard</small></span><span>→</span></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

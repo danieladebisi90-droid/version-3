@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scoridium</title>
+  <script src="team-theme-boot.js"></script>
+  <link rel="stylesheet" href="pageLayout.css">
+  <link rel="stylesheet" href="app-shell.css">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+</head>
+<body class="scoridium-shell">
+  <header id="app-header" class="shell-header">
+    <nav id="main-navigation" aria-label="Main navigation">
+      <a href="myTeams.html" class="nav-home" title="My Teams" aria-label="Go to My Teams">⌂</a>
+      <span class="nav-divider"></span>
+      <div class="header-team"><h2 id="shared-team-name"></h2></div>
+      <span class="nav-divider"></span>
+      <div class="nav-links">
+        <a href="dashboard.html" data-view="dashboard.html">Dashboard</a>
+        <a href="gamehub.html" data-view="gamehub.html">Game Hub</a>
+        <a href="roster.html" data-view="roster.html">Roster</a>
+        <a href="stats.html" data-view="stats.html">Stats</a>
+        <a href="playbook.html" data-view="playbook.html">Playbook</a>
+      </div>
+      <span class="nav-divider"></span>
+      <div class="season-selector-container"><select class="season-selector" aria-label="Select season"><option>Season</option></select></div>
+    </nav>
+  </header>
+  <main class="shell-main" id="shell-main" aria-label="Scoridium page">
+    <iframe id="page-frame" title="Scoridium content" loading="eager" allow="fullscreen" referrerpolicy="same-origin"></iframe>
+    <div class="shell-loading" id="shell-loading" aria-hidden="true"><span class="shell-loading-line"></span></div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="team-theme.js"></script>
+  <script src="app-shell.js"></script>
+</body>
+</html>

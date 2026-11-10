@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>if(window.top===window && sessionStorage.getItem('selectedTeamId')){location.replace('app.html?page=stats.html'+encodeURIComponent(location.search+location.hash));}</script>
+<script>if(window.parent!==window){document.documentElement.classList.add('scoridium-framed');}</script>
+<style>html.scoridium-framed #shared-header {display:none!important;}html.scoridium-framed #app-header {display:none!important;}html.scoridium-framed body {padding-top:0!important;}html.scoridium-framed body {min-height:100dvh!important;}</style>
+  <script src="team-theme-boot.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Statistics | Basketball</title>
+
+    <!-- ICON LIBRARY -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- SHARED LAYOUT CSS -->
+    <link rel="stylesheet" href="pageLayout.css">
+
+    <!-- STATISTICS PAGE CSS -->
+    <link rel="stylesheet" href="stats.css">
+  <link rel="stylesheet" href="navigation-smooth.css">
+</head>
+<body>
+  <div id="shared-header"><header id="app-header"><nav id="main-navigation" aria-label="Main navigation">
+<a href="myTeams.html" class="nav-home" aria-label="Back to My Teams" title="My Teams"><i data-lucide="house"></i></a>
+<span class="nav-divider"></span><div class="header-team"><h2 id="shared-team-name"></h2></div><span class="nav-divider"></span>
+<div class="nav-links"><a href="dashboard.html">Dashboard</a><a href="gamehub.html">Game Hub</a><a href="roster.html">Roster</a><a href="stats.html">Stats</a><a href="playbook.html">Playbook</a></div>
+<span class="nav-divider"></span><div class="season-selector-container"><select class="season-selector" aria-label="Select season"><option value="">Season</option></select></div>
+</nav></header>
+<script>/* synchronous identity restore, prior to first paint */
+(()=>{const t=window.__scoridiumCachedTeam;const id=sessionStorage.getItem('selectedTeamId');const label=t&&t.id===id?((t.team_type==='club'?(t.club_name||t.mascot):(t.mascot||t.club_name))||''):'';const target=document.getElementById('shared-team-name');if(target)target.textContent=label.toUpperCase();const link=document.querySelector('#main-navigation a[href="'+location.pathname.split('/').pop()+'"]');if(link)link.classList.add('active');const seasonId=sessionStorage.getItem('selectedSeasonId');const seasonName=sessionStorage.getItem('scoridium:season-label:'+id);if(seasonId&&seasonName){const s=document.querySelector('.season-selector');s.options[0].text=seasonName;s.options[0].value=seasonId;}})();
+</script></div>
+  <main class="page-shell">
+    <div id="data-notice" class="data-notice" hidden></div>
+    <nav class="main-tabs" aria-label="Statistics views">
+      <button type="button" class="active" data-view="team">Team Stats</button>
+      <button type="button" data-view="players">Player Stats</button>
+      <button type="button" data-view="games">Game Stats</button>
+    </nav>
+
+    
+<!-- ======================================
+     TEAM STATISTICS VIEW
+     ====================================== -->
+
+<section id="team-view" class="view active"
+         aria-label="Team statistics">
+
+    <div class="team-layout">
+
+        <!-- LEFT COLUMN -->
+        <div class="column-stack">
+
+            <!-- TEAM OVERVIEW -->
+            <article class="panel">
+                <h2>TEAM OVERVIEW</h2>
+
+                <div class="metric-grid"
+                     id="overview-cards"></div>
+            </article>
+
+            <!-- TEAM STATISTICS -->
+            <article class="panel team-table-panel">
+
+                <div class="panel-heading">
+                    <h2>TEAM STATISTICS</h2>
+                </div>
+
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STATISTIC</th>
+                                <th id="team-value-heading">TOTAL</th>
+                                <th>AVG/GAME</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="team-stats-body"></tbody>
+                    </table>
+                </div>
+
+            </article>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="column-stack">
+
+            <!-- QUARTER SCORING -->
+            <article class="panel">
+                <h2>POINTS BY QUARTER</h2>
+
+                <div class="legend">
+                    <span class="legend-dot navy"></span>
+                    Our Team
+
+                    <span class="legend-dot gray"></span>
+                    Opponents
+                </div>
+
+                <div id="quarter-chart"
+                     class="quarter-chart"></div>
+            </article>
+
+            
+<!-- TEAM SHOT PROFILE -->
+<article class="panel">
+
+    <h2>TEAM SHOT PROFILE</h2>
+
+    <!-- Full Court Shot Chart -->
+    <div id="team-shot-court"></div>
+
+    <!-- Shot Legend -->
+    <div class="shot-legend">
+        <span class="made-marker">●</span> Made
+        <span class="miss-marker">✕</span> Missed
+    </div>
+
+</article>
+
+
+            <!-- OFFENCE & DEFENCE -->
+            <article class="panel">
+                <h2>OFFENCE & DEFENCE ZONES</h2>
+
+                <div class="zone-comparison">
+    <div class="zone-side">
+        <button type="button"
+        class="zone-preview"
+        data-zone-side="offence"
+        aria-label="Expand offensive shooting zones"
+        aria-haspopup="dialog"
+        aria-controls="shooting-zones-modal">
+            <div id="offensive-zone-court"></div>
+        </button>
+    </div>
+
+    <div class="zone-side">
+        <button type="button"
+        class="zone-preview"
+        data-zone-side="defence"
+        aria-label="Expand defensive shooting zones"
+        aria-haspopup="dialog"
+        aria-controls="shooting-zones-modal">
+            <div id="defensive-zone-court"></div>
+        </button>
+    </div>
+
+</div>
+            </article>
+
+        </div>
+    </div>
+
+</section>
+
+
+    <section id="players-view" class="view" aria-label="Player statistics">
+      <article class="panel">
+        <h2>PLAYER STATISTICS</h2>
+        <div class="filters">
+          <select id="player-game-filter" aria-label="Player stats game filter"><option value="all">All Games</option></select>
+          <select id="player-unit-filter" aria-label="Player stats format"><option value="perGame">Per Game</option><option value="total">Totals</option></select>
+          <input id="player-search" type="search" placeholder="Search players…" aria-label="Search players">
+        </div>
+        <div class="table-scroll"><table id="player-table"><thead><tr><th>#</th><th data-sort="name">PLAYER ↕</th><th data-sort="gp">GP ↕</th><th data-sort="min">MIN ↕</th><th data-sort="pts">PTS ↕</th><th data-sort="fg">FG% ↕</th><th data-sort="three">3P% ↕</th><th data-sort="ft">FT% ↕</th><th data-sort="reb">REB ↕</th><th data-sort="ast">AST ↕</th><th data-sort="stl">STL ↕</th><th data-sort="blk">BLK ↕</th><th data-sort="tov">TO ↕</th><th data-sort="pf">PF ↕</th></tr></thead><tbody id="players-body"></tbody></table></div>
+      </article>
+      <div class="player-bottom">
+        <article class="panel"><h2>PLAYER LEADERS</h2><div class="mini-tabs" id="leader-tabs"><button class="active" data-stat="pts">Points</button><button data-stat="reb">Rebounds</button><button data-stat="ast">Assists</button><button data-stat="stl">Steals</button><button data-stat="blk">Blocks</button></div><div id="player-leaders-list"></div></article>
+        <article class="panel"><h2>SHOOTING BY ZONE</h2><div id="player-zones" class="zone-box"></div></article>
+        <article class="panel"><h2>PLAYER SHOT CHART</h2><div class="filters compact"><select id="shot-player-filter" aria-label="Shot chart player"></select><select id="shot-game-filter" aria-label="Shot chart game"><option value="all">All Games</option></select></div><div id="player-shot-court"></div><div class="shot-legend"><span class="made-marker">●</span> Made <span class="miss-marker">✕</span> Missed</div></article>
+      </div>
+    </section>
+
+    <section id="games-view" class="view" aria-label="Game statistics">
+      <div class="games-layout">
+        <article class="panel"><div class="panel-heading"><h2>SEASON GAMES</h2><span class="muted" id="game-count"></span></div><div class="table-scroll"><table><thead><tr><th>DATE</th><th>OPPONENT</th><th>LOCATION</th><th>RESULT</th><th>SCORE</th></tr></thead><tbody id="games-body"></tbody></table></div></article>
+        <article class="panel"><div class="panel-heading"><h2>GAME SUMMARY</h2><span class="muted" id="selected-game-date"></span></div><div id="game-score" class="game-score"></div><div class="mini-tabs" id="game-summary-tabs"><button data-summary="box" class="active">Box Score</button><button data-summary="shooting">Shooting</button><button data-summary="plays">Play-by-Play</button><button data-summary="compare">Team Comparison</button></div><div id="game-summary-content"></div><button type="button" id="open-game-details" class="text-button">VIEW FULL GAME DETAILS →</button></article>
+      </div>
+    </section>
+
+    <section id="details-view" class="view" aria-label="Game details">
+      <div class="details-head"><button id="back-to-games" class="text-button" type="button">← Back to Game Stats</button><h2>GAME DETAILS</h2></div>
+      <div id="detail-score" class="detail-score"></div>
+      <div class="mini-tabs detail-tabs" id="detail-tabs"><button class="active" data-detail="box">Box Score</button><button data-detail="shooting">Shooting</button><button data-detail="plays">Play-by-Play</button><button data-detail="compare">Team Comparison</button></div>
+      <div id="detail-content"></div>
+    </section>
+  </main>
+  <!-- EXPANDED SHOOTING ZONES -->
+<div id="shooting-zones-modal" class="zones-modal" hidden>
+
+    <div class="zones-modal-backdrop"></div>
+
+    <section class="zones-modal-content"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="zones-modal-title"
+             tabindex="-1">
+
+        <div class="zones-modal-header">
+            <h2 id="zones-modal-title">SHOOTING ZONES</h2>
+
+            <button type="button"
+                    id="close-zones"
+                    class="close-zones-btn"
+                    aria-label="Close shooting zones">
+                ✕
+            </button>
+        </div>
+
+        
+<!-- SHOOTING ANALYSIS VIEW SELECTOR -->
+<div class="zone-analysis-tabs" role="group"
+     aria-label="Shooting analysis views">
+
+    <button type="button" class="active" data-zone-view="basic">
+        Basic Zones
+    </button>
+
+    <button type="button" data-zone-view="traditional">
+        Traditional
+    </button>
+
+    <button type="button" data-zone-view="distance">
+        Distance
+    </button>
+
+</div>
+
+<!-- SINGLE LARGE COURT -->
+<div class="zone-analysis-layout">
+
+    <div class="zone-analysis-court">
+        <div id="expanded-analysis-court"></div>
+    </div>
+
+    <!-- ANALYSIS SUMMARY -->
+    <div class="zone-analysis-summary">
+        <h3>SHOOTING SUMMARY</h3>
+
+        <div id="expanded-analysis-summary"></div>
+    </div>
+
+</div>
+
+    </section>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="team-theme.js" defer></script>
+<script src="pageLayout.js" defer></script>
+    <script src="stats.js" defer></script>
+</body>
+</html>

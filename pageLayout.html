@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="pageLayout.css">
+</head>
+<body>
+    
+<header id="app-header">
+    <nav id="main-navigation" aria-label="Main navigation">
+
+        <!-- Home: Back to team list -->
+        <a
+            href="myTeams.html"
+            class="nav-home"
+            aria-label="Back to My Teams"
+            title="My Teams"
+        >
+            <i data-lucide="house"></i>
+        </a>
+
+        <span class="nav-divider"></span>
+
+        <!-- Team mascot only -->
+        <div class="header-team">
+            <h2 id="shared-team-name">TEAM</h2>
+        </div>
+
+        <span class="nav-divider"></span>
+
+        <!-- Text-only navigation -->
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="gamehub.html">Game Hub</a>
+            <a href="roster.html">Roster</a>
+            <a href="stats.html">Stats</a>
+            <a href="playbook.html">Playbook</a>
+        </div>
+
+        <span class="nav-divider"></span>
+
+        <!-- Season selector -->
+        <div class="season-selector-container">
+            <select
+                class="season-selector"
+                aria-label="Select season"
+            >
+                <option value="">Select Season</option>
+            </select>
+        </div>
+
+    </nav>
+</header>
+
+    </header>
+    <footer id="team-news-ticker">
+        <div class="ticker-label"> TEAM NEWS
+
+        </div>
+        <div class="ticker-container">
+            <div class="ticker-content"> 
+                <div class="ticker-group">
+                    <span class="ticker-item ticker-latest">Latest Result
+
+                    </span>
+                    <span class="ticker-item ticker-next">Next Game
+
+                    </span>
+                    <span class="ticker-item ticker-record"> Team Record
+
+                    </span>
+                </div>
+                <div class="ticker-group" aria-hidden = "true">
+                    <span class="ticker-item ticker-latest">Latest Result
+
+                    </span>
+                    <span class="ticker-item ticker-next">Next Game
+
+                    </span>
+                    <span class="ticker-item ticker-record"> Team Record
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="pageLayout.js"></script>
+
+</body>
+</html>

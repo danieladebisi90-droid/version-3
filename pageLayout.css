@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    box-sizing: border-box;
+    min-height: 100dvh;
+    height: auto;
+    padding: clamp(4px, 0.5vw, 10px) clamp(10px, 1.5vw, 24px);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--team-primary, #181818);
+}
+
+
+/* =========================================
+   SCORIDIUM SHARED NAVIGATION
+   ========================================= */
+
+#app-header {
+    position: relative;
+    width: 100%;
+    color: white;
+}
+
+#main-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(10px, 1.2vw, 20px);
+    min-height: 78px;
+    width: 100%;
+}
+
+/* HOME BUTTON */
+
+#main-navigation .nav-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    flex-shrink: 0;
+    color: white;
+    text-decoration: none;
+}
+
+#main-navigation .nav-home svg {
+    width: 24px;
+    height: 24px;
+}
+
+#main-navigation .nav-home:hover {
+    color: var(--team-secondary, #9299A5);
+}
+
+/* VERTICAL DIVIDERS */
+
+#main-navigation .nav-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+}
+
+/* TEAM MASCOT */
+
+#main-navigation .header-team {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+#main-navigation #shared-team-name {
+    font-family: 'Graduate', serif;
+    font-size: clamp(24px, 2.5vw, 36px);
+    font-weight: 400;
+    text-transform: uppercase;
+    color: white;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* NAVIGATION LINKS */
+
+#main-navigation .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex: 1;
+    gap: clamp(12px, 1.5vw, 28px);
+    min-width: 0;
+}
+
+#main-navigation .nav-links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px 0;
+    color: rgba(255, 255, 255, 0.8);
+    background: transparent;
+
+    text-decoration: none;
+    font-size: clamp(17px, 1.4vw, 22px);
+    font-weight: 600;
+    white-space: nowrap;
+    border: none;
+    border-radius: 0;
+    transition: color 0.2s ease;
+}
+
+/* ACTIVE PAGE UNDERLINE */
+
+#main-navigation .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 11px;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: transparent;
+    border-radius: 3px;
+}
+
+#main-navigation .nav-links a.active {
+    color: white;
+    background: transparent;
+}
+
+#main-navigation .nav-links a.active::after {
+    background: var(--team-secondary, #9299A5);
+}
+
+#main-navigation .nav-links a:hover {
+    color: white;
+    background: transparent;
+}
+
+/* SEASON SELECTOR */
+
+#main-navigation .season-selector-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#main-navigation .season-selector {
+    width: clamp(140px, 11vw, 175px);
+    height: 44px;
+    font-size: 16px;
+
+    background: white;
+    color: var(--team-primary, #181818);
+
+    border: 1px solid #D5DFEB;
+    border-radius: 7px;
+
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+/* RESPONSIVE NAVIGATION */
+
+@media (max-width: 1000px) {
+    #main-navigation {
+        gap: 12px;
+    }
+
+    #main-navigation .nav-links {
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 18px;
+        scrollbar-width: none;
+    }
+
+    #main-navigation .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+    #main-navigation {
+        flex-wrap: wrap;
+        padding: 10px 0;
+    }
+
+    #main-navigation .nav-links {
+        order: 5;
+        flex-basis: 100%;
+    }
+
+    #main-navigation .season-selector-container {
+        margin-left: auto;
+    }
+}
+
+#team-news-ticker{
+    display: flex;
+    align-items: center;
+    background-color: var(--team-primary, #181818);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 0px;
+    gap: 20px;
+}
+
+.ticker-label{
+    font-family: 'Graduate', serif;
+    font-weight: bolder;
+    background-color: var(--team-secondary, #9299A5);
+    color: var(--team-primary, #181818);
+    font-weight: bold;
+    padding: 0px 25px 0px 12px;
+    font-size: 14px;
+    height: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    clip-path: polygon(
+        0% 0%,
+        88% 0%,
+        100% 50%,
+        88% 100%,
+        0% 100%
+    );
+}
+
+.ticker-container{
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.ticker-content{
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: max-content;
+    animation-name: tickerScroll;
+    animation-duration: 20s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+}
+
+.ticker-group{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    flex-shrink: 0;
+}
+
+@keyframes tickerScroll{
+    from{transform: translateX(0);}
+    to{transform: translateX(-50%);}
+}
+
+#page-content {
+    flex: 1;
+    min-height: 0;
+}
+/* Scoridium unified team theme — applied to every shared-layout page */
+:root{--team-primary:#181818;--team-secondary:#9299A5;--team-primary-ink:#fff;--team-secondary-ink:#111;--team-strong:#181818;--team-soft:#eee;--team-action:#9299A5}
+body{background:var(--team-primary)!important}
+#app-header,#main-navigation{color:var(--team-primary-ink)}
+#main-navigation .nav-home,#main-navigation .nav-links a,#main-navigation .nav-links a.active,#main-navigation .nav-links a:hover{color:var(--team-primary-ink)}
+#main-navigation .nav-links a:not(.active){opacity:.76}
+#main-navigation .nav-divider{background:currentColor;opacity:.26}
+#main-navigation .nav-links a.active::after{background:var(--team-secondary)}
+#team-news-ticker{background:var(--team-primary);color:var(--team-primary-ink)}
+#team-news-ticker .ticker-label{background:var(--team-secondary);color:var(--team-secondary-ink)}

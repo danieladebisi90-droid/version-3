@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>if(window.top===window && sessionStorage.getItem('selectedTeamId')){location.replace('app.html?page=gamehub.html'+encodeURIComponent(location.search+location.hash));}</script>
+<script>if(window.parent!==window){document.documentElement.classList.add('scoridium-framed');}</script>
+<style>html.scoridium-framed #shared-header {display:none!important;}html.scoridium-framed #app-header {display:none!important;}html.scoridium-framed body {padding-top:0!important;}html.scoridium-framed body {min-height:100dvh!important;}</style>
+  <script src="team-theme-boot.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Hub</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="gamehub.css">
+    <link rel="stylesheet" href="pageLayout.css">
+    <link rel="stylesheet" href="calendar-subscribe.css">
+  <link rel="stylesheet" href="navigation-smooth.css">
+</head>
+
+<body>
+
+    <!-- SHARED HEADER -->
+    <div id="shared-header"><header id="app-header"><nav id="main-navigation" aria-label="Main navigation">
+<a href="myTeams.html" class="nav-home" aria-label="Back to My Teams" title="My Teams"><i data-lucide="house"></i></a>
+<span class="nav-divider"></span><div class="header-team"><h2 id="shared-team-name"></h2></div><span class="nav-divider"></span>
+<div class="nav-links"><a href="dashboard.html">Dashboard</a><a href="gamehub.html">Game Hub</a><a href="roster.html">Roster</a><a href="stats.html">Stats</a><a href="playbook.html">Playbook</a></div>
+<span class="nav-divider"></span><div class="season-selector-container"><select class="season-selector" aria-label="Select season"><option value="">Season</option></select></div>
+</nav></header>
+<script>/* synchronous identity restore, prior to first paint */
+(()=>{const t=window.__scoridiumCachedTeam;const id=sessionStorage.getItem('selectedTeamId');const label=t&&t.id===id?((t.team_type==='club'?(t.club_name||t.mascot):(t.mascot||t.club_name))||''):'';const target=document.getElementById('shared-team-name');if(target)target.textContent=label.toUpperCase();const link=document.querySelector('#main-navigation a[href="'+location.pathname.split('/').pop()+'"]');if(link)link.classList.add('active');const seasonId=sessionStorage.getItem('selectedSeasonId');const seasonName=sessionStorage.getItem('scoridium:season-label:'+id);if(seasonId&&seasonName){const s=document.querySelector('.season-selector');s.options[0].text=seasonName;s.options[0].value=seasonId;}})();
+</script></div>
+        <main id="app-content">
+            <section class="game-hub-layout">
+                <!-- LEFT SIDE -->
+                <div class="game-schedule">
+                    <div class="game-calendar">
+                        <div class="game-calendar-header">
+                            <h2>GAME SCHEDULE</h2>
+                            <div class="calendar-controls">
+                                <button
+    type="button"
+    class="calendar-subscribe-btn"
+>
+    Subscribe
+</button>
+
+<button
+    id="manage-schedule"
+    class="manage-schedule-btn"
+    type="button"
+    hidden
+    aria-haspopup="dialog"
+    aria-controls="schedule-modal"
+>
+    <i data-lucide="calendar-cog"></i>
+    <span>Manage</span>
+</button>
+
+                                <button id="previous-month" aria-label="Previous month">‹</button>
+                                <span id="calendar-month">October 2026</span>
+                                <button id="next-month" aria-label="Next month">›</button>
+                            </div>
+                        </div>
+                        <div class="calendar-weekdays">
+                            <span>MON</span>
+                            <span>TUE</span>
+                            <span>WED</span>
+                            <span>THU</span>
+                            <span>FRI</span>
+                            <span>SAT</span>
+                            <span>SUN</span>
+                        </div>
+                        <div class="calendar-dates" id="calendar-dates">
+                        <!-- JavaScript will generate the dates -->
+                        </div>
+                    </div>
+                    <div class="games-list">
+                        <div class="games-list-header">
+                            <h2>SEASON GAMES</h2>
+                            <span id="games-count">0 Games</span>
+                        </div>
+                        <div class="games-table-scroll">
+                            <table class="games-table">
+                            <thead>
+                                <tr>
+                                    <th>DATE</th>
+                                    <th>OPPONENT</th>
+                                    <th>LOCATION</th>
+                                    <th>RESULT</th>
+                                    <th>SCORE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="game-hub-games-body">
+                            <!-- JavaScript will generate game rows -->
+                            </tbody>
+                        </table>
+
+                    </div>
+                    </div>
+
+                </div>
+                <!-- RIGHT SIDE -->
+                <div class="game-info-container">
+                    <div class="previous-game">
+                        <div class="previous-game-header">
+                            <h2>PREVIOUS GAME</h2>
+                            <span id="previous-game-date">—</span>
+                        </div>
+                        <div class="previous-game-scoreboard">
+                            <div class="previous-home">
+                                <h3 id="previous-home-name">HOME</h3>
+                                <h1 id="previous-home-score">—</h1>
+                            </div>
+                            <span class="previous-vs">FINAL</span>
+
+                            <div class="previous-away">
+                                <h3 id="previous-away-name">AWAY</h3>
+                                <h1 id="previous-away-score">—</h1>
+                            </div>
+                        </div>
+                        <div class="previous-quarter-scores">
+                            <h3>QUARTER BREAKDOWN</h3>
+                            <div id="previous-quarters"></div>
+                        </div>
+
+                        <div class="previous-game-leaders">
+                            <h3>GAME LEADERS</h3>
+                            <div id="previous-leaders"></div>
+                        </div>
+
+                        <a id="previous-box-score-link" href="stats.html">
+                            VIEW FULL BOX SCORE
+                        </a>
+
+                    </div>
+                    <div class="next-game">
+                        <div class="next-game-header">
+                            <h2>NEXT GAME</h2>
+                            <span id="next-game-date">—</span>
+                        </div>
+                        <div class="next-game-matchup">
+                            <div class="next-home">
+                                <h3 id="next-home-name">HOME</h3>
+                                <p>HOME</p>
+                            </div>
+                            <span class="next-vs">VS</span>
+                            <div class="next-away">
+                                <h3 id="next-away-name">AWAY</h3>
+                                <p>AWAY</p>
+                            </div>
+                        </div>
+                        <div class="next-game-details">
+                            <span id="next-game-time">TIME: TBD</span>
+                            <span id="next-game-location">LOCATION: TBD</span>
+                        </div>
+                        <button id="open-next-game"> OPEN GAME </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+<!-- MANAGE SCHEDULE MODAL -->
+<div id="schedule-modal" class="schedule-modal" hidden>
+    <div class="schedule-modal-backdrop"></div>
+
+    <section class="schedule-modal-content"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="schedule-modal-title"
+             tabindex="-1">
+
+        <div class="schedule-modal-header">
+            <h2 id="schedule-modal-title">MANAGE SCHEDULE</h2>
+
+            <button id="close-schedule"
+                    type="button"
+                    aria-label="Close schedule editor">
+                ✕
+            </button>
+        </div>
+
+
+<!-- EXISTING SCHEDULE EVENTS -->
+<div class="schedule-existing-events">
+    <label for="schedule-existing-select">
+        EXISTING EVENTS
+    </label>
+
+    <select id="schedule-existing-select">
+        <option value="">+ Create New Event</option>
+    </select>
+</div>
+
+<form id="schedule-event-form">
+
+    <input
+    type="hidden"
+    id="schedule-event-id"
+    value=""
+>
+
+    <!-- EVENT TYPE DROPDOWN -->
+    <label for="schedule-event-type">Event Type</label>
+    <select id="schedule-event-type" required>
+        <option value="practice">Practice</option>
+        <option value="game">Game</option>
+        <option value="meeting">Team Meeting</option>
+        <option value="training">Training</option>
+        <option value="other">Other</option>
+    </select>
+
+    <!-- OPPONENT: GAME ONLY -->
+    <div id="schedule-opponent-field" hidden>
+        <label for="schedule-opponent">Opponent</label>
+        <input
+            id="schedule-opponent"
+            type="text"
+            maxlength="120"
+            placeholder="Enter opponent">
+    </div>
+
+    <!-- EXTRA FIELDS: TRAINING / OTHER -->
+    <div class="schedule-extra-fields" hidden>
+        <label for="schedule-event-title">Event Title</label>
+        <input
+            id="schedule-event-title"
+            type="text"
+            maxlength="120"
+            placeholder="Enter event title">
+
+        <label for="schedule-event-description">Description</label>
+        <textarea
+            id="schedule-event-description"
+            rows="3"
+            placeholder="Enter description"></textarea>
+    </div>
+
+    <!-- DATE -->
+    <label for="schedule-event-date">Date</label>
+    <input
+        id="schedule-event-date"
+        type="date"
+        required>
+
+    <!-- START AND END TIME -->
+    <div class="schedule-time-row">
+        <div>
+            <label for="schedule-start-time">Start Time</label>
+            <input
+                id="schedule-start-time"
+                type="time"
+                required>
+        </div>
+
+        <div>
+            <label for="schedule-end-time">End Time</label>
+            <input
+                id="schedule-end-time"
+                type="time">
+        </div>
+    </div>
+
+    <!-- LOCATION -->
+    <label for="schedule-event-location">Location</label>
+    <input
+        id="schedule-event-location"
+        type="text"
+        maxlength="200"
+        placeholder="Enter location"
+        required>
+
+    
+<!-- RECURRING PRACTICE OPTIONS -->
+<div id="practice-repeat-fields" class="schedule-repeat-fields" hidden>
+    <label class="schedule-repeat-toggle">
+        <input type="checkbox" id="schedule-repeat-weekly">
+        Repeat weekly
+    </label>
+
+    <div id="schedule-repeat-options" hidden>
+        <label>Repeat on</label>
+
+        <div class="schedule-repeat-days">
+            <label><input type="checkbox" value="1"> Mon</label>
+            <label><input type="checkbox" value="2"> Tue</label>
+            <label><input type="checkbox" value="3"> Wed</label>
+            <label><input type="checkbox" value="4"> Thu</label>
+            <label><input type="checkbox" value="5"> Fri</label>
+            <label><input type="checkbox" value="6"> Sat</label>
+            <label><input type="checkbox" value="0"> Sun</label>
+        </div>
+
+        <label for="schedule-repeat-until">Repeat until</label>
+        <input type="date" id="schedule-repeat-until">
+    </div>
+</div>
+
+<!-- OPTIONS WHEN EDITING AN EXISTING SERIES -->
+<div id="schedule-series-editor" hidden>
+    <label for="schedule-edit-scope">Apply changes to</label>
+
+    <select id="schedule-edit-scope">
+        <option value="one">This practice only</option>
+        <option value="future">This and following practices</option>
+        <option value="all">All practices in the series</option>
+    </select>
+
+    <p class="schedule-series-note">
+        Practices individually customized earlier will be preserved
+        when updating the series.
+    </p>
+</div>
+
+<!-- GAME-SPECIFIC FIELDS -->
+<div id="schedule-game-fields" hidden>
+
+    <label for="schedule-game-location">
+        Home or Away
+    </label>
+
+    <select id="schedule-game-location">
+        <option value="home">Home Game</option>
+        <option value="away">Away Game</option>
+    </select>
+
+    <label for="schedule-game-venue">
+        Venue / Gymnasium
+    </label>
+
+    <input
+        type="text"
+        id="schedule-game-venue"
+        placeholder="Enter gym or arena"
+    >
+
+</div>
+
+<!-- GAME-SPECIFIC FIELDS -->
+<div id="schedule-game-fields" hidden>
+
+    <label for="schedule-game-location">
+        Home or Away
+    </label>
+
+    <select id="schedule-game-location">
+        <option value="home">Home Game</option>
+        <option value="away">Away Game</option>
+    </select>
+
+    <label for="schedule-game-venue">
+        Venue / Gymnasium
+    </label>
+
+    <input
+        type="text"
+        id="schedule-game-venue"
+        placeholder="Enter gym or arena"
+    >
+
+</div>
+
+
+    <!-- FORM MESSAGE -->
+    <p id="schedule-form-message" role="status"></p>
+
+    <!-- ACTION BUTTONS -->
+    <div class="schedule-form-actions">
+        <button
+            id="delete-schedule-event"
+            type="button"
+            hidden>
+            Delete Event
+        </button>
+
+        <button
+            id="save-schedule-event"
+            type="submit">
+            Save Event
+        </button>
+    </div>
+
+</form>
+
+    </section>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="team-theme.js" defer></script>
+<script src="pageLayout.js" defer></script>
+    <script src="gamehub.js" defer></script>
+    <script src="calendar-subscribe.js" defer></script>
+
+</body>
+</html>

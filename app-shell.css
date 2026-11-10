@@ -1,0 +1,14 @@
+/* Persistent Scoridium app shell. Existing page styles remain in the iframe. */
+html, body.scoridium-shell {height:100%; min-height:0; overflow:hidden; box-sizing:border-box;}
+body.scoridium-shell {display:flex; flex-direction:column; margin:0; padding: 4px clamp(10px,1.5vw,24px); background:var(--team-primary,#181818)!important;}
+.shell-header {flex:none; min-height:78px; position:relative; z-index:3; background:var(--team-primary,#181818)}
+.shell-main {flex:1; min-height:0; width:100%; position:relative; overflow:hidden; border-radius:12px 12px 0 0; background:var(--team-primary,#181818);}
+#page-frame {width:100%;height:100%; border:0;display:block;background:var(--team-primary,#181818);transition:opacity .16s ease;}
+.shell-main.is-loading #page-frame {opacity:.12;pointer-events:none;}
+.shell-loading {position:absolute; left:0; top:0; width:100%; height:3px; opacity:0; pointer-events:none; overflow:hidden; transition:opacity .1s;}
+.shell-main.is-loading .shell-loading {opacity:1;}
+.shell-loading-line {display:block;width:36%;height:100%;background:var(--team-secondary,#9299A5);animation:loading-move 1.1s ease-in-out infinite;}
+@keyframes loading-move {from{transform:translateX(-110%)}to{transform:translateX(340%)}}
+#main-navigation a[data-view].active {opacity:1;}
+@media (prefers-reduced-motion:reduce) {#page-frame{transition:none}.shell-loading-line{animation:none}}
+/* Inner pages set html.scoridium-framed during head parsing. */

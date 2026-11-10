@@ -1,0 +1,1862 @@
+
+/* =========================================
+   1. GLOBAL COLOURS
+   ========================================= */
+
+:root {
+    --navy: var(--team-primary, #181818);
+    --dark: var(--team-deep, #111111);
+    --blue: var(--team-strong, #181818);
+    --yellow: var(--team-secondary, #9299A5);
+
+    --page: #edf2f8;
+    --white: #ffffff;
+    --line: #d5e2f0;
+    --text: var(--team-strong, #181818);
+    --muted: #687b97;
+
+    --green: #15964c;
+    --red: #df3138;
+    --wood: #d2a06d;
+}
+
+
+/* =========================================
+   2. GLOBAL STYLES
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+}
+
+body {
+    background: var(--navy);
+}
+
+button,
+select,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   3. HEADER / TOP NAVIGATION
+   ========================================= */
+
+.topbar {
+    height: 46px;
+    background: linear-gradient(90deg, #16437f, #0a2c5c);
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+
+    padding: 0 18px;
+    gap: 10px;
+    color: white;
+}
+
+.topbar h1 {
+    font: 700 20px Georgia, "Times New Roman", serif;
+    text-align: center;
+    margin: 0;
+}
+
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.topbar select {
+    justify-self: end;
+
+    width: min(175px, 100%);
+    height: 29px;
+
+    background: white;
+    border: 1px solid #cddbed;
+    border-radius: 5px;
+
+    color: var(--dark);
+    font-size: 12px;
+    padding: 0 9px;
+}
+
+
+/* =========================================
+   4. MAIN PAGE CONTAINER
+   ========================================= */
+
+
+/* =========================================
+   STATISTICS PAGE MAIN CONTAINER
+   ========================================= */
+
+.page-shell {
+    width: 100%;
+    max-width: none;
+
+    flex: 1;
+    min-height: 0;
+
+    margin: 0;
+    padding: 12px;
+
+    background-color: #E8EDF3;
+    border-radius: 10px 10px 0 0;
+
+    overflow-y: auto;
+}
+
+
+.data-notice {
+    background: #fff4cd;
+    border: 1px solid #edd785;
+    border-radius: 6px;
+
+    padding: 10px;
+    margin: 0 0 10px;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   5. MAIN STATISTICS TABS
+   TEAM / PLAYER / GAME
+   ========================================= */
+
+.main-tabs {
+    display: flex;
+    justify-content: center;
+
+    margin: 0 auto 12px;
+    max-width: 450px;
+    gap: 0;
+}
+
+.main-tabs button {
+    min-width: 115px;
+    flex: 1;
+
+    border: 1px solid var(--line);
+    background: #f3f7fc;
+
+    padding: 10px 8px;
+    font-size: 12px;
+    color: var(--dark);
+}
+
+.main-tabs button:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.main-tabs button:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.main-tabs button.active,
+.mini-tabs button.active,
+.segmented button.active {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+}
+
+
+/* =========================================
+   6. PAGE VIEW VISIBILITY
+   ========================================= */
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+
+/* =========================================
+   7. TEAM STATS LAYOUT
+   ========================================= */
+
+.team-layout {
+    display: grid;
+    grid-template-columns: 1.18fr 1fr;
+    gap: 9px;
+}
+
+.column-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+
+/* =========================================
+   8. GENERAL PANELS
+   ========================================= */
+
+.panel {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+
+    padding: 11px;
+    min-width: 0;
+}
+
+.panel h2,
+.details-head h2 {
+    font: 700 16px Georgia, "Times New Roman", serif;
+    color: var(--dark);
+    margin: 0 0 9px;
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.panel-heading h2 {
+    margin: 0 0 7px;
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+
+/* =========================================
+   9. TEAM OVERVIEW STAT CARDS
+   ========================================= */
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+}
+
+.metric {
+    background: #f2f6fb;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+
+    text-align: center;
+    padding: 9px 3px;
+}
+
+.metric-label {
+    display: block;
+    font-size: 11px;
+}
+
+.metric-value {
+    font-weight: 800;
+    font-size: 21px;
+    margin-top: 6px;
+}
+
+
+/* =========================================
+   10. GENERAL STATISTICS TABLES
+   ========================================= */
+
+.table-scroll {
+    width: 100%;
+    overflow: auto;
+    max-height: 490px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+th {
+    background: #e5edf6;
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 11px;
+
+    text-align: left;
+    padding: 8px 9px;
+}
+
+td {
+    padding: 7px 9px;
+    border-bottom: 1px solid #e5edf4;
+}
+
+tbody tr:nth-child(even) {
+    background: #f5f8fc;
+}
+
+td:not(:first-child),
+th:not(:first-child) {
+    text-align: right;
+}
+
+.team-table-panel {
+    flex: 1;
+}
+
+
+/* =========================================
+   11. SMALL TABS / FILTER BUTTONS
+   ========================================= */
+
+.segmented,
+.mini-tabs {
+    display: flex;
+    gap: 2px;
+}
+
+.segmented button,
+.mini-tabs button {
+    background: #f2f6fb;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+
+    padding: 7px 10px;
+    color: var(--dark);
+    font-size: 11px;
+}
+
+
+/* =========================================
+   12. SHOOTING PERCENTAGE RINGS
+   ========================================= */
+
+.ring-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.ring-item {
+    text-align: center;
+    font-size: 11px;
+}
+
+.ring {
+    width: min(115px, 100%);
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    margin: auto auto 7px;
+    position: relative;
+}
+
+.ring::before {
+    content: "";
+    position: absolute;
+    inset: 12%;
+
+    background: white;
+    border-radius: 50%;
+}
+
+.ring strong {
+    position: relative;
+    font-size: 18px;
+}
+
+.ring-item b {
+    display: block;
+}
+
+.ring-item small {
+    color: var(--muted);
+}
+
+
+/* =========================================
+   13. CHART LEGEND
+   ========================================= */
+
+.legend {
+    text-align: center;
+    color: var(--muted);
+    font-size: 10px;
+    margin-bottom: 9px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin: 0 4px 0 12px;
+}
+
+.legend-dot.navy {
+    background: var(--navy);
+}
+
+.legend-dot.gray {
+    background: #9aa8ba;
+}
+
+
+/* =========================================
+   14. QUARTER SCORING CHART
+   ========================================= */
+
+.quarter-chart {
+    display: flex;
+    gap: 12px;
+
+    align-items: flex-end;
+    justify-content: space-evenly;
+
+    height: 180px;
+    padding: 10px 4px;
+}
+
+.quarter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+
+    height: 100%;
+    flex: 1;
+}
+
+.bars {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+
+    gap: 4px;
+    height: 135px;
+    width: 100%;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.bar {
+    width: 30%;
+    max-width: 35px;
+    min-height: 2px;
+
+    background: var(--navy);
+    position: relative;
+}
+
+.bar.opponent {
+    background: #9aa8ba;
+}
+
+.bar span {
+    position: absolute;
+    bottom: calc(100% + 3px);
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.quarter-label {
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+
+/* =========================================
+   15. TEAM / PLAYER LEADERS
+   ========================================= */
+
+.leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.leader {
+    border: 1px solid var(--line);
+    background: #f7f9fc;
+    border-radius: 5px;
+
+    padding: 9px;
+    min-width: 0;
+}
+
+.leader b {
+    display: block;
+    font-size: 11px;
+}
+
+.leader span {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    margin: 4px 0;
+}
+
+.leader strong {
+    font-size: 20px;
+}
+
+
+/* =========================================
+   16. PLAYER STAT FILTERS
+   ========================================= */
+
+.filters {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+
+    margin-bottom: 9px;
+    flex-wrap: wrap;
+}
+
+.filters select,
+.filters input {
+    height: 32px;
+    min-width: 110px;
+
+    border-radius: 5px;
+    border: 1px solid var(--line);
+
+    background: white;
+    color: var(--text);
+
+    font-size: 11px;
+    padding: 0 8px;
+}
+
+.filters input {
+    margin-left: auto;
+    width: 190px;
+    min-width: 140px;
+}
+
+.filters.compact {
+    flex-wrap: nowrap;
+}
+
+.filters.compact select {
+    width: 50%;
+    min-width: 0;
+}
+
+
+/* =========================================
+   17. SORTABLE PLAYER TABLE
+   ========================================= */
+
+#player-table th[data-sort] {
+    cursor: pointer;
+}
+
+#player-table th:hover {
+    background: #d0e2f7;
+}
+
+
+/* =========================================
+   18. PLAYER STATS BOTTOM LAYOUT
+   ========================================= */
+
+.player-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1.2fr;
+    gap: 9px;
+    margin-top: 9px;
+}
+
+.player-bottom .mini-tabs {
+    flex-wrap: wrap;
+    margin: 6px 0;
+}
+
+#player-leaders-list .leader-line {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 9px 4px;
+    border-bottom: 1px solid var(--line);
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   19. SHOOTING ZONES
+   ========================================= */
+
+.zone-box {
+    min-height: 180px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+}
+
+.zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: #e4eefb;
+    border: 1px solid #d4e2f5;
+    border-radius: 5px;
+
+    min-height: 80px;
+    font-size: 11px;
+}
+
+.zone strong {
+    font-size: 21px;
+}
+
+.zone small {
+    color: var(--muted);
+}
+
+.zone:nth-child(5) {
+    background: #d0e2fc;
+}
+
+
+/* =========================================
+   20. SHOT CHART LEGEND
+   ========================================= */
+
+.shot-legend {
+    text-align: center;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.made-marker {
+    color: var(--green);
+    font-size: 15px;
+}
+
+.miss-marker {
+    color: var(--red);
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 14px;
+}
+
+
+/* =========================================
+   21. BASKETBALL COURT / SHOT CHART
+   ========================================= */
+
+.court-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+
+    background: var(--wood);
+    border-radius: 3px;
+}
+
+
+/* =========================================
+   22. GAME STATS PAGE LAYOUT
+   ========================================= */
+
+.games-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 9px;
+}
+
+.games-layout tr[data-game-id] {
+    cursor: pointer;
+}
+
+.games-layout tr.selected {
+    background: var(--navy);
+    color: white;
+}
+
+.games-layout tr.selected td {
+    border-color: var(--navy);
+}
+
+
+/* =========================================
+   23. WIN / LOSS INDICATORS
+   ========================================= */
+
+.win {
+    color: var(--green);
+    font-weight: bold;
+}
+
+.loss {
+    color: var(--red);
+    font-weight: bold;
+}
+
+.games-layout tr.selected .win,
+.games-layout tr.selected .loss {
+    color: white;
+}
+
+
+/* =========================================
+   24. GAME SCOREBOARD
+   ========================================= */
+
+.game-score,
+.detail-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+    text-align: center;
+    padding: 18px 5px;
+}
+
+.game-score .score,
+.detail-score .score {
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.team-badge {
+    background: var(--navy);
+    color: white;
+    border-radius: 50%;
+
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+    place-items: center;
+
+    margin: 0 auto 6px;
+    font-weight: 800;
+}
+
+.score-side {
+    min-width: 90px;
+}
+
+.score-side small {
+    display: block;
+}
+
+.score-label {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+
+/* =========================================
+   25. GAME STATS SUB-TABS
+   ========================================= */
+
+.mini-tabs {
+    margin: 8px 0;
+}
+
+.mini-tabs button {
+    flex: 1;
+}
+
+.text-button {
+    border: 0;
+    background: transparent;
+
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 11px;
+
+    padding: 10px 0;
+}
+
+
+/* =========================================
+   26. GAME DETAILS HEADER
+   ========================================= */
+
+.details-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-score {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+
+    margin-bottom: 9px;
+}
+
+.detail-tabs {
+    margin: 0 0 9px;
+}
+
+
+/* =========================================
+   27. GAME DETAILS LAYOUT
+   ========================================= */
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr) 220px;
+    gap: 9px;
+}
+
+.detail-layout .panel {
+    height: 100%;
+}
+
+.detail-layout .court-svg {
+    max-height: none;
+}
+
+.detail-layout select {
+    width: 100%;
+    margin: 3px 0 12px;
+
+    border: 1px solid var(--line);
+    border-radius: 5px;
+
+    padding: 8px;
+    color: var(--dark);
+    background: white;
+}
+
+
+/* =========================================
+   28. GAME DETAIL STAT METRICS
+   ========================================= */
+
+.detail-metric {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   29. FULL GAME BOX SCORE
+   ========================================= */
+
+.details-table {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   30. PLAY-BY-PLAY
+   ========================================= */
+
+.play-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.play-list li {
+    padding: 8px;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+}
+
+
+/* =========================================
+   31. TEAM COMPARISON BARS
+   ========================================= */
+
+.compare-track {
+    background: #e2e8f0;
+    height: 12px;
+    border-radius: 6px;
+
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.compare-fill {
+    height: 100%;
+    background: var(--navy);
+}
+
+.comparison {
+    padding: 7px 0;
+    font-size: 12px;
+}
+
+.comparison .values {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* =========================================
+   32. INLINE BUTTONS
+   ========================================= */
+
+.inline-btn {
+    padding: 5px 7px;
+    font-size: 11px;
+
+    border: 1px solid var(--line);
+    border-radius: 4px;
+
+    background: #f4f7fb;
+    color: var(--dark);
+}
+
+.inline-btn.active {
+    background: var(--navy);
+    color: white;
+}
+
+
+/* =========================================
+   33. RESPONSIVE DESIGN — TABLETS
+   SCREENS UNDER 900PX
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .team-layout,
+    .games-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .player-bottom {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .player-bottom > .panel:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .detail-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .detail-layout > .panel:nth-child(2) {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+}
+
+
+/* =========================================
+   34. RESPONSIVE DESIGN — PHONES
+   SCREENS UNDER 600PX
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    /* Header */
+
+    .topbar {
+        padding: 0 9px;
+        grid-template-columns: 1fr 1.1fr 1fr;
+    }
+
+    .topbar h1 {
+        font-size: 16px;
+    }
+
+    /* Main Page */
+
+    .page-shell {
+        padding: 8px;
+    }
+
+    /* Stat Cards */
+
+    .metric-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 4px;
+    }
+
+    .metric-value {
+        font-size: 16px;
+    }
+
+    .metric-label {
+        font-size: 9px;
+    }
+
+    /* Shooting Rings */
+
+    .ring-grid {
+        gap: 3px;
+    }
+
+    .ring strong {
+        font-size: 13px;
+    }
+
+    .ring-item b {
+        font-size: 10px;
+    }
+
+    .ring-item small {
+        font-size: 9px;
+    }
+
+    /* Player / Game Details Layout */
+
+    .player-bottom,
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .player-bottom > .panel:last-child,
+    .detail-layout > .panel:nth-child(2) {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    /* Panels */
+
+    .panel {
+        padding: 9px;
+    }
+
+    .panel h2 {
+        font-size: 14px;
+    }
+
+    /* Scoreboard */
+
+    .game-score .score {
+        font-size: 26px;
+    }
+
+    .score-side {
+        min-width: 57px;
+    }
+
+    /* Filters */
+
+    .filters input {
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Navigation Tabs */
+
+    .main-tabs button {
+        min-width: 0;
+        font-size: 11px;
+    }
+
+}
+
+/* =========================================
+   TEAM SHOT PROFILE
+   ========================================= */
+
+
+.team-shot-view.active {
+    display: block;
+}
+
+#team-shot-court {
+    width: 100%;
+}
+
+#team-shot-court .court-svg {
+    max-height: 250px;
+}
+
+/* =========================================
+   TEAM SHOT PROFILE
+   ========================================= */
+
+.team-shot-view {
+    display: none;
+}
+
+.team-shot-view.active {
+    display: block;
+}
+
+#team-shot-zones-court,
+#team-shot-court {
+    width: 100%;
+}
+
+.zone-court-svg,
+#team-shot-court .court-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 280px;
+}
+
+.zone-overlay {
+    stroke: rgba(255,255,255,0.9);
+    stroke-width: 2;
+}
+
+.zone-label {
+    font-size: 13px;
+    font-weight: 700;
+    fill: var(--team-strong, #181818);
+    text-anchor: middle;
+}
+
+.zone-subtext {
+    font-size: 10px;
+    fill: var(--team-strong, #181818);
+    text-anchor: middle;
+}
+
+#team-shot-tabs {
+    margin-left: auto;
+}
+
+
+/* =========================================
+   TEAM SHOT PROFILE
+   ========================================= */
+
+.team-shot-view {
+    display: none;
+}
+
+.team-shot-view.active {
+    display: block;
+}
+
+#team-shot-zones-court,
+#team-shot-court {
+    width: 100%;
+    min-width: 0;
+}
+
+#team-shot-zones-court svg,
+#team-shot-court svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    margin: 0 auto;
+}
+
+#team-shot-tabs {
+    margin-left: auto;
+}
+
+
+/* =========================================
+   OFFENCE AND DEFENCE ZONES
+   ========================================= */
+
+.zone-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.zone-side {
+    min-width: 0;
+    text-align: center;
+}
+
+.zone-side h3 {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--team-primary, var(--team-strong, #181818));
+    margin: 0 0 8px;
+}
+
+#offensive-zone-court,
+#defensive-zone-court {
+    width: 100%;
+    min-width: 0;
+}
+
+#offensive-zone-court svg,
+#defensive-zone-court svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    margin: 0 auto;
+}
+
+.zone-note {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin: 8px 0 0;
+}
+
+/* =========================================
+   RESPONSIVE ZONE COURTS
+   ========================================= */
+
+@media (max-width: 600px) {
+    .zone-comparison {
+        gap: 6px;
+    }
+
+    .zone-side h3 {
+        font-size: 10px;
+    }
+
+    #offensive-zone-court svg,
+    #defensive-zone-court svg {
+        max-height: 220px;
+    }
+}
+
+.zone-preview {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 5px;
+    cursor: zoom-in;
+    overflow: hidden;
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.zone-preview svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.zone-preview:hover {
+    transform: scale(1.02);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.16);
+}
+
+.zone-preview:focus-visible {
+    outline: 3px solid var(--team-primary, var(--team-strong, #181818));
+    outline-offset: 3px;
+}
+
+.zone-preview {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: zoom-in;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.zone-preview:hover {
+    filter: brightness(1.06);
+    transform: scale(1.01);
+}
+
+.zone-preview:focus-visible {
+    outline: 3px solid var(--team-primary, var(--team-strong, #181818));
+    outline-offset: 3px;
+}
+
+.zones-modal[hidden] {
+    display: none;
+}
+
+.zones-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.zones-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 17, 39, 0.7);
+}
+
+.zones-modal-content {
+    position: relative;
+    width: min(95vw, 1400px);
+    max-height: 92dvh;
+    overflow-y: auto;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+}
+
+.zones-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.zones-modal-header h2 {
+    margin: 0;
+    color: var(--team-primary, var(--team-strong, #181818));
+}
+
+.close-zones-btn {
+    border: none;
+    background: transparent;
+    color: var(--team-strong, #181818);
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.zones-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.zones-modal-panel {
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #d5e2f0;
+    border-radius: 8px;
+}
+
+.zones-modal-panel h3 {
+    color: var(--team-primary, var(--team-strong, #181818));
+}
+
+#expanded-offence-court svg,
+#expanded-defence-court svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    margin: auto;
+}
+
+@media (max-width: 700px) {
+    .zones-modal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* SHOOTING ANALYSIS VIEW BUTTONS */
+
+.zone-analysis-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.zone-analysis-tabs button {
+    padding: 10px 8px;
+    background: #F1F5F9;
+    color: var(--team-strong, #181818);
+    border: 1px solid #D5DFEB;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Selected view */
+.zone-analysis-tabs button.active {
+    background: var(--team-strong, #181818);
+    color: white;
+    border-color: var(--team-strong, #181818);
+}
+
+/* Hover effect */
+.zone-analysis-tabs button:hover:not(.active) {
+    background: #E2E8F0;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+    .zone-analysis-tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* LARGE SHOOTING ANALYSIS POPUP */
+
+.zones-modal-content {
+    width: min(95vw, 1400px);
+    max-width: 1400px;
+    max-height: 95dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Court and statistics side by side */
+.zone-analysis-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+/* Court container */
+.zone-analysis-court {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Large FIBA court */
+#expanded-analysis-court {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#expanded-analysis-court svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+}
+
+/* Summary panel */
+.zone-analysis-summary {
+    min-width: 0;
+}
+
+/* Tablet and mobile */
+@media (max-width: 900px) {
+    .zone-analysis-layout {
+        grid-template-columns: 1fr;
+    }
+
+    #expanded-analysis-court {
+        max-width: 650px;
+    }
+}
+
+/* Interactive traditional shooting zones */
+
+.zone-summary tr[data-traditional-zone] {
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.zone-summary tr[data-traditional-zone]:hover {
+    background: #F1F5F9;
+}
+
+.zone-summary tr.zone-selected {
+    background: #E8EDF3;
+    font-weight: 700;
+}
+
+.zone-shooting-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.zone-shooting-metrics > div {
+    padding: 12px 6px;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    text-align: center;
+    background: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.zone-shooting-metrics span {
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.zone-shooting-metrics strong {
+    font-size: 20px;
+}
+
+.zone-shooting-metrics small {
+    color: #64748B;
+}
+
+.clear-traditional-zones {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.zone-analysis-summary {
+    min-width: 0;
+    width: 100%;
+}
+
+.zone-analysis-summary .zone-summary {
+    width: 100%;
+    table-layout: fixed;
+    font-size: 11px;
+}
+
+.zone-analysis-summary .zone-summary th,
+.zone-analysis-summary .zone-summary td {
+    padding: 7px 5px;
+}
+
+.zone-analysis-summary .zone-summary th:first-child,
+.zone-analysis-summary .zone-summary td:first-child {
+    width: 49%;
+}
+
+.zone-analysis-summary .zone-summary th:nth-child(2),
+.zone-analysis-summary .zone-summary td:nth-child(2) {
+    width: 19%;
+    text-align: center;
+}
+
+.zone-analysis-summary .zone-summary th:nth-child(3),
+.zone-analysis-summary .zone-summary td:nth-child(3) {
+    width: 32%;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .zone-analysis-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Shooting summary heading */
+
+.zone-summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.zone-summary-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--team-strong, #181818);
+}
+
+.zone-summary-header .clear-traditional-zones {
+    margin: 0;
+    padding: 6px 9px;
+    border: 1px solid #D4DCE7;
+    border-radius: 6px;
+    background: #F8FAFC;
+    color: var(--team-strong, #181818);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.zone-summary-header .clear-traditional-zones:hover {
+    background: #E8EDF3;
+}
+
+/* Shooting efficiency cards */
+
+.zone-shooting-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.zone-shooting-metrics > div {
+    min-width: 0;
+    min-height: 92px;
+    padding: 10px 4px;
+    box-sizing: border-box;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    background: #F8FAFC;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.zone-shooting-metrics span {
+    font-size: 10px;
+    font-weight: 700;
+    color: #475569;
+}
+
+.zone-shooting-metrics strong {
+    font-size: clamp(14px, 1.5vw, 20px);
+    font-weight: 800;
+    color: var(--team-strong, #181818);
+}
+
+.zone-shooting-metrics small {
+    font-size: 11px;
+    color: #64748B;
+}
+
+/* Traditional Zone Summary polish */
+
+.zone-analysis-summary {
+    min-width: 0;
+    width: 100%;
+}
+
+/* Three shooting metric cards */
+.zone-shooting-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+    margin: 12px 0;
+}
+
+.zone-shooting-metrics > div {
+    min-width: 0;
+    min-height: 84px;
+    box-sizing: border-box;
+    padding: 10px 3px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.zone-shooting-metrics span {
+    font-size: 9px;
+    font-weight: 700;
+    color: #475569;
+}
+
+.zone-shooting-metrics strong {
+    font-size: clamp(13px, 1.4vw, 19px);
+    font-weight: 800;
+    color: var(--team-strong, #181818);
+}
+
+.zone-shooting-metrics small {
+    font-size: 10px;
+    color: #64748B;
+}
+
+/* Selection controls directly below FG cards */
+.zone-summary-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.zone-selection-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+}
+
+.zone-summary-actions .clear-traditional-zones {
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid #D4DCE7;
+    border-radius: 6px;
+    background: #F8FAFC;
+    color: var(--team-strong, #181818);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.zone-summary-actions .clear-traditional-zones:hover:not(:disabled) {
+    background: #E8EDF3;
+}
+
+.zone-summary-actions .clear-traditional-zones:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+/* Compact, readable zone table */
+.zone-analysis-summary .zone-summary {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.zone-analysis-summary .zone-summary th,
+.zone-analysis-summary .zone-summary td {
+    padding: 7px 5px;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.zone-analysis-summary .zone-summary th:first-child,
+.zone-analysis-summary .zone-summary td:first-child {
+    width: 50%;
+}
+
+.zone-analysis-summary .zone-summary th:nth-child(2),
+.zone-analysis-summary .zone-summary td:nth-child(2) {
+    width: 18%;
+    text-align: center;
+}
+
+.zone-analysis-summary .zone-summary th:nth-child(3),
+.zone-analysis-summary .zone-summary td:nth-child(3) {
+    width: 32%;
+    text-align: center;
+}
+
+.zone-analysis-summary .zone-summary tr[data-traditional-zone]:hover {
+    background: #EDF2F8;
+}
+
+.zone-analysis-summary .zone-summary tr.zone-selected {
+    background: color-mix(
+        in srgb,
+        var(--team-secondary, #FFD600) 18%,
+        white
+    );
+}
+
+.zone-analysis-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.zone-analysis-tabs button {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 8px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+/* Shared Clear Selection styling */
+
+.zone-summary-actions .clear-traditional-zones,
+.zone-summary-actions .clear-basic-zones,
+.zone-summary-actions .clear-distance-zones {
+    margin: 0;
+    padding: 7px 10px;
+    border: 1px solid #D4DCE7;
+    border-radius: 6px;
+    background: #F8FAFC;
+    color: var(--team-strong, #181818);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.zone-summary-actions .clear-traditional-zones:hover:not(:disabled),
+.zone-summary-actions .clear-basic-zones:hover:not(:disabled),
+.zone-summary-actions .clear-distance-zones:hover:not(:disabled) {
+    background: #E8EDF3;
+}
+
+.zone-summary-actions button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+/* Scroll only the Traditional Zone summary */
+
+.traditional-zone-scroll {
+    max-height: 385px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+}
+
+.traditional-zone-scroll .zone-summary {
+    width: 100%;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Keep the column headings visible while scrolling */
+.traditional-zone-scroll .zone-summary thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #F1F5F9;
+}
+
+/* Preserve clickable zone highlighting */
+.traditional-zone-scroll .zone-summary tr {
+    cursor: pointer;
+}

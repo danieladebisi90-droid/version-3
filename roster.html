@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>if(window.top===window && sessionStorage.getItem('selectedTeamId')){location.replace('app.html?page=roster.html'+encodeURIComponent(location.search+location.hash));}</script>
+<script>if(window.parent!==window){document.documentElement.classList.add('scoridium-framed');}</script>
+<style>html.scoridium-framed #shared-header {display:none!important;}html.scoridium-framed #app-header {display:none!important;}html.scoridium-framed body {padding-top:0!important;}html.scoridium-framed body {min-height:100dvh!important;}</style>
+  <script src="team-theme-boot.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team & Roster | Scoridium</title>
+  <link rel="stylesheet" href="roster.css" />
+  <link rel="stylesheet" href="pageLayout.css">
+  <link rel="stylesheet" href="navigation-smooth.css">
+</head>
+<body>
+  <!-- Your shared pageLayout.html header can be inserted into this element. -->
+  <div id="shared-header"><header id="app-header"><nav id="main-navigation" aria-label="Main navigation">
+<a href="myTeams.html" class="nav-home" aria-label="Back to My Teams" title="My Teams"><i data-lucide="house"></i></a>
+<span class="nav-divider"></span><div class="header-team"><h2 id="shared-team-name"></h2></div><span class="nav-divider"></span>
+<div class="nav-links"><a href="dashboard.html">Dashboard</a><a href="gamehub.html">Game Hub</a><a href="roster.html">Roster</a><a href="stats.html">Stats</a><a href="playbook.html">Playbook</a></div>
+<span class="nav-divider"></span><div class="season-selector-container"><select class="season-selector" aria-label="Select season"><option value="">Season</option></select></div>
+</nav></header>
+<script>/* synchronous identity restore, prior to first paint */
+(()=>{const t=window.__scoridiumCachedTeam;const id=sessionStorage.getItem('selectedTeamId');const label=t&&t.id===id?((t.team_type==='club'?(t.club_name||t.mascot):(t.mascot||t.club_name))||''):'';const target=document.getElementById('shared-team-name');if(target)target.textContent=label.toUpperCase();const link=document.querySelector('#main-navigation a[href="'+location.pathname.split('/').pop()+'"]');if(link)link.classList.add('active');const seasonId=sessionStorage.getItem('selectedSeasonId');const seasonName=sessionStorage.getItem('scoridium:season-label:'+id);if(seasonId&&seasonName){const s=document.querySelector('.season-selector');s.options[0].text=seasonName;s.options[0].value=seasonId;}})();
+</script></div>
+  <main class="roster-page" id="roster-page">
+    <section class="team-banner" aria-label="Current team">
+      <div class="team-emblem" id="team-emblem" aria-hidden="true"></div>
+      <div class="team-title">
+        <h2 id="team-name"></h2>
+        <p id="school-name"></p>
+        <p>VARSITY BASKETBALL <span class="gold-bar">│</span> <span id="season-label">2026 – 2027</span></p>
+      </div>
+      <div class="team-highlights">
+        <div><strong id="player-count">—</strong><span>PLAYERS</span></div>
+        <div><strong id="active-count">—</strong><span>ACTIVE</span></div>
+        <div><strong id="staff-count">—</strong><span>STAFF</span></div>
+        <div><strong id="record-count">—</strong><span>RECORD</span></div>
+      </div>
+    </section>
+    <nav class="roster-tabs" aria-label="Roster categories">
+      <button type="button" class="is-selected" aria-current="page">Roster</button>
+      <button type="button" disabled title="Team information to be connected">Team Information</button>
+      <button type="button" disabled title="Staff management to be connected">Staff</button>
+    </nav>
+    <section class="roster-panel" aria-labelledby="roster-title">
+      <div class="roster-toolbar">
+        <div>
+          <h2 id="roster-title">TEAM ROSTER</h2>
+          <p id="roster-summary" class="sr-only">Loading players…</p>
+        </div>
+        <label class="search-control">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input id="roster-search" type="search" placeholder="Search players or numbers" aria-label="Search players or numbers" />
+        </label>
+        <button type="button" class="add-player" disabled title="Player management is connected in the next development step">＋ Add Player</button>
+      </div>
+      <div class="demo-control" id="demo-control" hidden>
+        <span>Preview roster size</span>
+        <div class="demo-buttons" id="demo-buttons"></div>
+        <span class="demo-note">Preview data — connect Supabase to display your real roster.</span>
+      </div>
+      <div id="roster-status" class="status-message" role="status" hidden></div>
+      <div id="jersey-grid" class="jersey-grid" aria-live="polite"></div>
+    </section>
+    <footer class="page-footer">SCORIDIUM <span>HOME TO THE ELEMENTS OF YOUR GAME</span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="team-theme.js" defer></script>
+<script src="pageLayout.js" defer></script>
+  <!-- In your actual app, load the existing Supabase initialization and pageLayout scripts before roster.js. -->
+  <script src="roster.js" defer></script>
+</body>
+</html>
